@@ -31,3 +31,7 @@
   margin-bottom: auto;
   padding: 0;
 }
+
+.closebtn:hover {
+  cursor: pointer;
+}

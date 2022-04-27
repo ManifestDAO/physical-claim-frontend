@@ -19,6 +19,7 @@
 
 .user-info:hover {
   background-color: rgba(128, 0, 128, 0.521);
+  cursor: pointer;
   transition: 0.2s;
 }
 
