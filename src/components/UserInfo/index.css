@@ -6,11 +6,14 @@
   margin: 0.5em;
   border: solid;
   border-color: purple;
+  box-shadow: 0 0 100px rgba(255, 0, 234, 0.212);
+  border-style: solid;
   padding: 1em;
   border-radius: 1.5em;
-  max-width: 70vw;
+  max-width: 200px;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 50px;
   transition: 0.2s;
 }
 

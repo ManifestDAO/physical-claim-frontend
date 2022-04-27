@@ -1,0 +1,33 @@
+.shopup {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.219);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.shopup-inner {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1.5em;
+  background-color: rgb(71, 71, 71);
+  padding: 2em;
+  max-width: 90vw;
+}
+
+.closebtn {
+  margin-right: 0;
+  margin-left: auto;
+  margin-top: 0;
+  margin-bottom: auto;
+  padding: 0;
+}

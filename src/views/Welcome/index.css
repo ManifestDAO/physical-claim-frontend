@@ -1,0 +1,19 @@
+.welcome {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20vh;
+  margin-bottom: auto;
+}
+
+.mnfst {
+  filter: drop-shadow(0 0 50px purple);
+}
+
+.welcometext {
+  font-weight: bolder;
+  text-align: center;
+  font-size: max-content;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.514));
+}

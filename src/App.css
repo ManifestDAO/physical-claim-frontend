@@ -15,9 +15,12 @@
   font-weight: bold;
   margin: 1em;
   transition: 0.2s;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.486);
 }
 
 .btn:hover {
   transform: translateY(-5px);
   cursor: pointer;
+  box-shadow: 0 0 10px white;
+  box-shadow: 0 0 20px rgb(255, 0, 242);
 }

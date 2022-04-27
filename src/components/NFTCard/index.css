@@ -7,6 +7,8 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+  left: 0;
+  right: 0;
 }
 
 .nft-card {
@@ -18,16 +20,24 @@
   border-radius: 1.5em;
   max-width: 95vw;
   width: 300px;
-  height: fit-content;
+  height: 500px;
   background-color: rgb(48, 48, 48);
-  transition: ease-in 0.2s;
+  transition: 0.2s;
+  z-index: 1;
+}
+
+.nft-card:hover {
+  cursor: pointer;
+  background-color: rgb(82, 82, 82);
 }
 
 .nft-card.active {
+  height: fit-content;
   border: solid;
   border-color: purple;
   background-color: rgba(128, 0, 128, 0.562);
-  transition: ease-in 0.2s;
+  box-shadow: 0 0 50px rgba(255, 0, 234, 0.274);
+  transition: 0.2s;
 }
 
 .nft-image {
@@ -43,4 +53,36 @@
 .nft-dropdown {
   display: flex;
   flex-direction: column;
+}
+
+.claiminfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+label {
+  text-align: center;
+}
+
+select {
+  background-color: rgb(71, 42, 70);
+  color: white;
+  border: none;
+  border-radius: 1.5em;
+  margin-top: 1em;
+  padding: 0.5em;
+}
+
+option {
+  border-radius: 1.5em;
+}
+
+.title {
+  width: 100vw;
+  text-align: center;
+  font-size: 50px;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.651));
 }
