@@ -1,0 +1,45 @@
+.connect-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  height: 500px;
+  width: 500px;
+  max-width: 95vw;
+}
+
+.metamask-btn {
+  width: 250px;
+  border: none;
+  border-radius: 1.5em 0 0 1.5em;
+  padding: 0.5em;
+  transition: 0.2s;
+  background-color: rgba(255, 166, 0, 0.507);
+}
+
+.metamask-btn:hover {
+  transform: translateY(-5px);
+  transition: 0.2s;
+  background-color: orange;
+}
+
+.walletconnect-btn {
+  width: 250px;
+  border: none;
+  border-radius: 0 1.5em 1.5em 0;
+  padding: 0.5em;
+  transition: 0.2s;
+  background-color: rgba(173, 216, 230, 0.5);
+}
+
+.walletconnect-btn:hover {
+  transform: translateY(-5px);
+  transition: 0.2s;
+  background-color: lightblue;
+}
+
+.walleticon {
+  max-width: 50%;
+}

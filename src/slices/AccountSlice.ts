@@ -1,4 +1,3 @@
-import { Web3Provider } from "@ethersproject/providers";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface AccountAsyncThunk {
@@ -9,7 +8,6 @@ export const getAccountInfo: any = createAsyncThunk(
   "account/getAccountInfo",
   async ({ account }: AccountAsyncThunk) => {
     const address = account;
-    console.log("doing");
     return {
       address,
     };
@@ -20,12 +18,14 @@ interface AccountState {
   address: string;
   nfts: string[];
   status: string;
+  provider: string;
 }
 
 const initialState: AccountState = {
   address: "",
   nfts: [],
   status: "",
+  provider: "",
 };
 
 const reducers = {};
@@ -33,7 +33,11 @@ const reducers = {};
 const accountSlice = createSlice({
   name: "account",
   initialState,
-  reducers,
+  reducers: {
+    changeProvider(state, action) {
+      state.provider = action.payload;
+    },
+  },
   extraReducers: {
     [getAccountInfo.pending]: (state, action) => {
       state.status = "loading";
@@ -49,3 +53,4 @@ const accountSlice = createSlice({
 });
 
 export default accountSlice.reducer;
+export const changeProvider = accountSlice.actions.changeProvider;

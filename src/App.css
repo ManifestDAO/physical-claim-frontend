@@ -1,19 +1,14 @@
-nav {
+.App {
   display: flex;
-  flex-direction: row;
-  justify-content: right;
-}
-
-.navbtns {
-  display: flex;
-  flex-direction: row;
-  margin-left: auto;
-  margin-right: 10%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .btn {
   border: none;
   padding: 1em;
+  width: 10em;
   color: white;
   background-color: rgb(97, 2, 134);
   border-radius: 1.5em;
