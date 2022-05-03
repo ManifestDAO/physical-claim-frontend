@@ -23,15 +23,7 @@ function App() {
 
   return (
     <div className="App">
-      {account ? (
-        <>
-          <Navbar />
-          {shopUp ? <ShopUp setShopUp={setShopUp} /> : ""}
-          <NFTCard setShopUp={setShopUp} />
-        </>
-      ) : (
-        <Welcome />
-      )}
+      <Welcome />
     </div>
   );
 }

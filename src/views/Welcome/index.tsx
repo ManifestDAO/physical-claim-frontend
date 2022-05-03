@@ -6,9 +6,12 @@ import "./index.css";
 export default function Welcome() {
   return (
     <div className="welcome">
-      <img src={MNFST} alt="manifestlogo" className="mnfst" />
-      <h1 className="welcometext">CONNECT YOUR WALLET:</h1>
-      <ConnectButton />
+      <a href="https://app.manifest.gg">
+        <img src={MNFST} alt="manifestlogo" className="mnfst" />
+      </a>
+      <a href="https://app.manifest.gg">
+        <h1 className="welcometext">COMING SOON</h1>
+      </a>
     </div>
   );
 }

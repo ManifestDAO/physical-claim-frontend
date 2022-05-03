@@ -11,6 +11,11 @@
   filter: drop-shadow(0 0 50px purple);
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .welcometext {
   font-weight: bolder;
   text-align: center;
