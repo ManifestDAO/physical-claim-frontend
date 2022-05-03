@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-import IMAGE1 from "../../assets/nftimages/t-shirt-1-cooperation.gif";
-import IMAGE2 from "../../assets/nftimages/t-shirt-2-protection.gif";
-import IMAGE3 from "../../assets/nftimages/t-shirt-3-growth.gif";
+import klimaTee1Cooperation from "../../assets/nftimages/t-shirt-1-cooperation.gif";
+import klimaTee2Protection from "../../assets/nftimages/t-shirt-2-protection.gif";
+import klimaTee3Growth from "../../assets/nftimages/t-shirt-3-growth.gif";
 import loading from "../../assets/logos/mnfstloader.gif";
+import { ShirtNames } from "../../constants/shirtIds";
 import { useDispatch, useSelector } from "react-redux";
 import { getNFTInfo } from "../../slices/NFTSlice";
 import { RootState } from "../../store";
@@ -21,9 +22,14 @@ const NFTCard: React.FC<NFTCardProps> = function ({ setShopUp }) {
   const nfts = useSelector((state: RootState) => state.nfts.nfts);
   const status = useSelector((state: RootState) => state.nfts.status);
 
+  const shirtImages = [
+    klimaTee1Cooperation,
+    klimaTee2Protection,
+    klimaTee3Growth,
+  ];
+
   useEffect(() => {
     dispatch(getNFTInfo({ address: address }));
-    console.log(nfts);
   }, [address]);
   return (
     <div className="nft-screen">
@@ -36,23 +42,9 @@ const NFTCard: React.FC<NFTCardProps> = function ({ setShopUp }) {
             className={selected === index ? "nft-card active" : "nft-card"}
             onClick={() => setSelected(index)}
           >
-            <h1 className="nft-title">
-              {item.id.tokenId === "1"
-                ? "Co-Operation"
-                : item.id.tokenId === "2"
-                ? "Protection"
-                : item.id.tokenId === "3"
-                ? "Growth"
-                : ""}
-            </h1>
+            <h1 className="nft-title">{ShirtNames[item.id.tokenId]}</h1>
             <img
-              src={
-                item.id.tokenId === "1"
-                  ? IMAGE1
-                  : item.id.tokenId === "2"
-                  ? IMAGE2
-                  : IMAGE3
-              }
+              src={shirtImages[item.id.tokenId - 1]}
               alt="nft"
               className="nft-image"
             />
