@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import "./App.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getAccountInfo } from "./slices/AccountSlice";
-import { RootState } from "./store";
 import NFTCard from "./components/NFTCard/index";
 import Navbar from "./components/Navbar";
 import Welcome from "./views/Welcome";
@@ -14,8 +13,6 @@ function App() {
   const [shopUp, setShopUp] = useState(false);
 
   const dispatch = useDispatch();
-
-  const address = useSelector((state: RootState) => state.account.address);
 
   useEffect(() => {
     dispatch(getAccountInfo({ account: account }));

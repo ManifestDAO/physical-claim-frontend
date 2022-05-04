@@ -22,7 +22,6 @@ const NFTCard: React.FC<NFTCardProps> = function ({ setShopUp }) {
   const status = useSelector((state: RootState) => state.nfts.status);
 
   useEffect(() => {
-    console.log(chainId);
     try {
       dispatch(getNFTInfo({ address: address, chainId: chainId }));
     } catch (err) {
@@ -39,6 +38,7 @@ const NFTCard: React.FC<NFTCardProps> = function ({ setShopUp }) {
           <div
             className={selected === index ? "nft-card active" : "nft-card"}
             onClick={() => setSelected(index)}
+            key={index}
           >
             <h1 className="nft-title">{ShirtNames[item.id.tokenId]}</h1>
             <img

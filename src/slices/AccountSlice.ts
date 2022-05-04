@@ -28,8 +28,6 @@ const initialState: AccountState = {
   provider: "",
 };
 
-const reducers = {};
-
 const accountSlice = createSlice({
   name: "account",
   initialState,

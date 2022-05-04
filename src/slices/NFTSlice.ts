@@ -9,7 +9,6 @@ interface NFTThunk {
 export const getNFTInfo: any = createAsyncThunk(
   "nfts/getNFTInfo",
   async ({ address, chainId }: NFTThunk) => {
-    console.log(chainId);
     const nftList = await fetchNFTS(address, chainId);
     return nftList;
   }
