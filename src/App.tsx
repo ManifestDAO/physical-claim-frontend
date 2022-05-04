@@ -10,7 +10,7 @@ import Welcome from "./views/Welcome";
 import ShopUp from "./components/ShopUp";
 
 function App() {
-  const { account, chainId } = useWeb3React();
+  const { account, chainId, deactivate } = useWeb3React();
   const [shopUp, setShopUp] = useState(false);
 
   const dispatch = useDispatch();
@@ -20,6 +20,13 @@ function App() {
   useEffect(() => {
     dispatch(getAccountInfo({ account: account }));
   }, [account]);
+
+  useEffect(() => {
+    if (chainId !== 4 && account !== undefined) {
+      window.alert("Connect to Rinkeby Testnet");
+      deactivate();
+    }
+  }, [chainId]);
 
   return (
     <div className="App">

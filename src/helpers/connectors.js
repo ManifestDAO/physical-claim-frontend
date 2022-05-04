@@ -1,9 +1,7 @@
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 
-export const MetaMask = new InjectedConnector({
-  supportedChainIds: [0x04],
-});
+export const MetaMask = new InjectedConnector({});
 
 export const WalletConnect = new WalletConnectConnector({
   rpc: {

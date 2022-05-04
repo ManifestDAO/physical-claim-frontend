@@ -3,12 +3,14 @@ import { fetchNFTS } from "../helpers/getNFTs";
 
 interface NFTThunk {
   address: string;
+  chainId: number;
 }
 
 export const getNFTInfo: any = createAsyncThunk(
   "nfts/getNFTInfo",
-  async ({ address }: NFTThunk) => {
-    const nftList = await fetchNFTS(address);
+  async ({ address, chainId }: NFTThunk) => {
+    console.log(chainId);
+    const nftList = await fetchNFTS(address, chainId);
     return nftList;
   }
 );
