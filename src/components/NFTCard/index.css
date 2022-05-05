@@ -67,7 +67,7 @@ label {
   text-align: center;
 }
 
-select {
+.nft-size-options {
   background-color: rgb(71, 42, 70);
   color: white;
   border: none;

@@ -34,6 +34,7 @@ const accountSlice = createSlice({
   reducers: {
     changeProvider(state, action) {
       state.provider = action.payload;
+      localStorage.setItem("Provider", action.payload);
     },
   },
   extraReducers: {

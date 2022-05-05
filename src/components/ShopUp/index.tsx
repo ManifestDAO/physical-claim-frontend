@@ -1,5 +1,6 @@
 import React from "react";
 import MNFST from "../../assets/logos/mnfstloader.gif";
+import OrderForm from "../OrderForm";
 import "./index.css";
 
 interface ShopUpProps {
@@ -13,8 +14,7 @@ const ShopUp: React.FC<ShopUpProps> = function ({ setShopUp }) {
         <p className="closebtn" onClick={() => setShopUp(false)}>
           CLOSE
         </p>
-        <h1>SHOPIFY API WILL GO IN THIS POPUP</h1>
-        <img src={MNFST} alt="loading" />
+        <OrderForm />
       </div>
     </div>
   );

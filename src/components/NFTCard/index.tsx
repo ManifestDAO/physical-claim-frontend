@@ -54,7 +54,7 @@ const NFTCard: React.FC<NFTCardProps> = function ({ setShopUp }) {
                   id="tshirt-size"
                 >
                   Select your size:
-                  <select name="tshirt-size">
+                  <select className="nft-size-options" name="tshirt-size">
                     <option value="xs">XS - Extra Small</option>
                     <option value="s">S - Small</option>
                     <option value="medium">M - Medium</option>
