@@ -8,7 +8,12 @@ import { RootState } from "../../store";
 import "./index.css";
 import { sizeIds } from "../../constants/sizeIds";
 
-const OrderForm = () => {
+interface OrderFormProps {
+  setLoading: any;
+  setApiReturn: any;
+}
+
+const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
   const { library } = useWeb3React();
   const [error, setError] = useState(false);
   const order = useSelector((state: RootState) => state.order);
@@ -132,8 +137,10 @@ const OrderForm = () => {
         province_code: order.province_code,
       }),
     };
+    setLoading(true);
     request(options, function (error: any, response: any) {
-      if (error) throw new Error(error);
+      if (error) setApiReturn("Something Went Wrong!");
+      setLoading(false);
       console.log(response.body);
     });
     console.log(signature);
