@@ -52,7 +52,7 @@ function App() {
         <>
           <Navbar />
           {shopUp ? <ShopUp setShopUp={setShopUp} /> : ""}
-          <NFTCard setShopUp={setShopUp} />
+          <NFTCard shopUp={shopUp} setShopUp={setShopUp} />
         </>
       ) : (
         <Welcome />

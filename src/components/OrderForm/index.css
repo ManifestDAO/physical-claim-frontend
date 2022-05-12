@@ -1,61 +1,96 @@
 .order-form {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
-  max-width: 100%;
-  width: 600px;
+  max-width: 600px;
 }
 
-.order-inputs {
+.order-form > div > div > label {
+  font-weight: bold;
+  font-family: "Courier New", Courier, monospace;
+  filter: drop-shadow(0px 0px 5px white);
+}
+
+.order-input {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.order-input-box {
+  padding: 0.5em;
+  border: solid;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  color: white;
+  border-color: purple;
+  background-color: rgba(95, 4, 122, 0.719);
+  border-radius: 5px;
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.137);
+}
+
+.form-chunk {
   display: flex;
   justify-content: center;
-  flex-direction: column;
   align-items: center;
-  border-radius: 1.5em;
-  border: none;
-  padding: 1em;
+  flex-direction: column;
+  margin: 1em;
+  min-width: 30%;
 }
 
-.input-title {
-  margin-bottom: 5px;
+#country {
+  max-width: 14em;
+  padding: 0.5em;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  color: white;
+  border-radius: 5px;
+  border: solid;
+  border-color: purple;
+  background-color: rgba(95, 4, 122, 0.719);
 }
 
-.error-text {
-  color: red;
-  font-size: small;
-  margin-bottom: 5px;
-  margin-top: -5px;
+#region {
+  width: 14em;
+  padding: 0.5em;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  color: white;
+  border-color: purple;
+  border-radius: 5px;
+  border: solid;
+  border-color: purple;
+  background-color: rgba(95, 4, 122, 0.719);
+}
+
+.submit-button:hover {
+  cursor: pointer;
+  transform: translateY(-5px);
+  transition: 0.2s;
+}
+
+.top-chunk {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  min-width: 80%;
+}
+
+.top-chunk > h2 {
+  margin: 0;
   padding: 0;
 }
 
-.submit {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+.top-chunk > h3 {
+  margin: 0;
+  margin-bottom: 2em;
+  padding: 0;
 }
 
-.submitbtn {
-  margin-top: 2em;
-}
-
-.dropdowns {
-  min-width: 80%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-#country-dropdown {
-  padding: 1em;
-  border-radius: 1.5em;
-  width: 100%;
-}
-
-#region-dropdown {
-  padding: 1em;
-  border-radius: 1.5em;
-  width: 100%;
+.order-image {
+  max-height: 300px;
 }

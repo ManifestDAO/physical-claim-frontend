@@ -1,5 +1,4 @@
 import React from "react";
-import MNFST from "../../assets/logos/mnfstloader.gif";
 import OrderForm from "../OrderForm";
 import "./index.css";
 

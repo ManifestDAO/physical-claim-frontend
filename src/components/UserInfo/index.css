@@ -33,3 +33,9 @@
   overflow: hidden;
   max-width: fit-content;
 }
+
+.error-text {
+  color: red;
+  margin: 0;
+  padding: 0;
+}
