@@ -1,5 +1,5 @@
 import { useWeb3React } from "@web3-react/core";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 import { ShirtNames, ShirtImages } from "../../constants/shirtIds";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +17,6 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
   const { library } = useWeb3React();
   const [error, setError] = useState(false);
   const order = useSelector((state: RootState) => state.order);
-  const size = useSelector((state: RootState) => state.order.size);
   const address = useSelector((state: RootState) => state.account.address);
   const dispatch = useDispatch();
 
@@ -108,34 +107,20 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
       return;
     }
     setError(false);
+
     const signature = await signMessage(address, library);
+
     var request = require("request");
     var options = {
-      method: "GET",
-      url: "http://localhost:5001/api/v1/order",
+      method: "POST",
+      url: "https://inventory.manifest.gg/api/v1/order",
       headers: {
         signature: signature?.signature,
         message: signature?.message,
         address: address,
         "Content-Type": "application/json",
-        Cookie: "_session_id=9sE2fdU1uXW7aQtTJpvuiwMfOMM",
       },
-      body: JSON.stringify({
-        nft_address: order.nft_address,
-        nft_tokenid: order.nft_tokenid,
-        size: order.size,
-        email: order.email,
-        first_name: order.first_name,
-        last_name: order.last_name,
-        address1: order.address1,
-        city: order.city,
-        state: order.state,
-        zip: order.zip,
-        country: order.country,
-        country_code: order.country_code,
-        province: order.province,
-        province_code: order.province_code,
-      }),
+      body: JSON.stringify({ order }),
     };
     setLoading(true);
     request(options, function (error: any, response: any) {
@@ -155,6 +140,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
         <img
           src={ShirtImages[parseInt(order.nft_tokenid)]}
           className="order-image"
+          alt={ShirtNames[order.nft_tokenid]}
         />
       </div>
 
@@ -201,6 +187,17 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
           <input
             className="order-input-box"
             id="address1"
+            type="text"
+            onChange={(event) => changeHandler(event)}
+          />
+        </div>
+
+        <div className="order-input">
+          <label htmlFor="address1">Street Address 2*</label>
+          {error ? <p className="error-text">Required Field</p> : ""}
+          <input
+            className="order-input-box"
+            id="address2"
             type="text"
             onChange={(event) => changeHandler(event)}
           />

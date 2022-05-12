@@ -3,6 +3,7 @@ import { useWeb3React } from "@web3-react/core";
 import "./App.css";
 import { useDispatch } from "react-redux";
 import { changeProvider, getAccountInfo } from "./slices/AccountSlice";
+import { chainIds } from "./constants/chainIds";
 import NFTCard from "./components/NFTCard/index";
 import Navbar from "./components/Navbar";
 import Welcome from "./views/Welcome";
@@ -20,18 +21,17 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (localStorage.getItem("Provider") !== null) {
-      if (localStorage.getItem("Provider") === "metamask") {
-        activate(MetaMask);
-        dispatch(changeProvider("metamask"));
-        return;
-      }
-      if (localStorage.getItem("Provider") === "walletconnect") {
-        resetWalletConnectConnector();
-        activate(WalletConnect);
-        dispatch(changeProvider("walletconnect"));
-        return;
-      }
+    if (localStorage.getItem("Provider") === null) return;
+    if (localStorage.getItem("Provider") === "metamask") {
+      activate(MetaMask);
+      dispatch(changeProvider("metamask"));
+      return;
+    }
+    if (localStorage.getItem("Provider") === "walletconnect") {
+      resetWalletConnectConnector();
+      activate(WalletConnect);
+      dispatch(changeProvider("walletconnect"));
+      return;
     }
   }, []);
 
@@ -40,7 +40,7 @@ function App() {
   }, [account]);
 
   useEffect(() => {
-    if (chainId !== 4 && account !== undefined) {
+    if (chainId !== chainIds.ETH_RINKEBY_TESTNET && account !== undefined) {
       window.alert("Connect to Rinkeby Testnet");
       deactivate();
     }
