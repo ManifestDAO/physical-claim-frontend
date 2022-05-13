@@ -6,12 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getNFTInfo } from "../../slices/NFTSlice";
 import { RootState } from "../../store";
 import { useWeb3React } from "@web3-react/core";
+import { update } from "../../slices/OrderSlice";
 
 interface NFTCardProps {
+  shopUp: boolean;
   setShopUp: any;
 }
 
-const NFTCard: React.FC<NFTCardProps> = function ({ setShopUp }) {
+const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
   const { chainId } = useWeb3React();
   const dispatch = useDispatch();
 
@@ -23,13 +25,38 @@ const NFTCard: React.FC<NFTCardProps> = function ({ setShopUp }) {
 
   useEffect(() => {
     try {
+      dispatch(
+        update({
+          type: "update_nft",
+          key: ["nft_address", "nft_tokenid"],
+          value: [nfts[selected].contract.address, nfts[selected].id.tokenId],
+        })
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }, [selected]);
+
+  useEffect(() => {
+    try {
       dispatch(getNFTInfo({ address: address, chainId: chainId }));
     } catch (err) {
       console.log(err);
     }
   }, [address]);
+
+  const handleChange = (event: any) => {
+    dispatch(
+      update({
+        type: "update_size",
+        key: "size",
+        value: event.target.value,
+      })
+    );
+  };
+
   return (
-    <div className="nft-screen">
+    <div className={shopUp ? "nft-screen-bg" : "nft-screen"}>
       <h1 className="title">CLAIMABLE NFTS</h1>
       {status !== "success" ? (
         <img src={loading} alt="LOADING NFTS" className="loading" />
@@ -54,7 +81,11 @@ const NFTCard: React.FC<NFTCardProps> = function ({ setShopUp }) {
                   id="tshirt-size"
                 >
                   Select your size:
-                  <select className="nft-size-options" name="tshirt-size">
+                  <select
+                    className="nft-size-options"
+                    name="tshirt-size"
+                    onChange={(event) => handleChange(event)}
+                  >
                     <option value="xs">XS - Extra Small</option>
                     <option value="s">S - Small</option>
                     <option value="medium">M - Medium</option>
@@ -64,7 +95,7 @@ const NFTCard: React.FC<NFTCardProps> = function ({ setShopUp }) {
                   </select>
                 </label>
                 <button className="btn" onClick={() => setShopUp(true)}>
-                  CLAIM
+                  MANIFEST
                 </button>
               </div>
             ) : (

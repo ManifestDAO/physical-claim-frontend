@@ -11,6 +11,22 @@
   right: 0;
 }
 
+.nft-screen-bg {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  top: 15%;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  position: fixed;
+}
+
 .nft-card {
   margin: 0.5em;
   display: flex;

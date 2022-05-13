@@ -1,90 +1,265 @@
-import React, { useState } from "react";
-import { orderInputs } from "../../helpers/orderInputs";
-import "./index.css";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { useWeb3React } from "@web3-react/core";
+import React, { ChangeEvent, useState } from "react";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
-import {
-  changeCountry,
-  changeRegion,
-  changeInfo,
-} from "../../slices/OrderInfoSlice";
+import { ShirtNames, ShirtImages } from "../../constants/shirtIds";
+import { useDispatch, useSelector } from "react-redux";
+import { update } from "../../slices/OrderSlice";
+import { RootState } from "../../store";
+import "./index.css";
+import { sizeIds } from "../../constants/sizeIds";
 
-const OrderForm = () => {
-  const dispatch = useDispatch();
+interface OrderFormProps {
+  setLoading: any;
+  setApiReturn: any;
+}
+
+const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
+  const { library } = useWeb3React();
   const [error, setError] = useState(false);
-
   const order = useSelector((state: RootState) => state.order);
-  const country = useSelector((state: RootState) => state.order.country);
-  const region = useSelector(
-    (state: RootState) => state.order.state || state.order.province
-  );
+  const address = useSelector((state: RootState) => state.account.address);
+  const dispatch = useDispatch();
 
-  const submit = () => {
+  const changeHandler = (event: any) => {
+    dispatch(
+      update({
+        type: "update_info",
+        value: event.target.value,
+        key: event.target.id,
+      })
+    );
+  };
+
+  const handleCountryChange = (value: string, e: any) => {
+    dispatch(
+      update({
+        type: "update_info",
+        value: value,
+        key: "country_code",
+      })
+    );
+    var index = e.nativeEvent.target.selectedIndex;
+    dispatch(
+      update({
+        type: "update_info",
+        value: e.nativeEvent.target[index].text,
+        key: "country",
+      })
+    );
+  };
+
+  const handleRegionChange = (id: string, e: any) => {
+    dispatch(
+      update({
+        type: "update_region",
+        key: id,
+      })
+    );
+    var index = e.nativeEvent.target.selectedIndex;
+    dispatch(
+      update({
+        type: "update_info",
+        key: "state",
+        value: e.nativeEvent.target[index].text,
+      })
+    );
+    dispatch(
+      update({
+        type: "update_info",
+        key: "province",
+        value: e.nativeEvent.target[index].text,
+      })
+    );
+  };
+
+  async function signMessage(address: string, library: any) {
+    try {
+      const provider = await library;
+      const signer = await provider.getSigner();
+      const signature = await signer.signMessage("Verify Wallet");
+
+      return {
+        address,
+        signature,
+        message: "Verify Wallet",
+      };
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const submit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (
+      order.nft_address === "" ||
+      order.nft_tokenid === "" ||
+      order.size === "" ||
       order.first_name === "" ||
       order.last_name === "" ||
       order.address1 === "" ||
       order.city === "" ||
-      order.country === "" ||
-      region === ""
+      order.zip === "" ||
+      order.state === "" ||
+      order.province === "" ||
+      order.country === ""
     ) {
-      console.log("ERROR");
       setError(true);
       return;
     }
-    console.log(order);
     setError(false);
+
+    const signature = await signMessage(address, library);
+
+    var request = require("request");
+    var options = {
+      method: "POST",
+      url: "https://inventory.manifest.gg/api/v1/order",
+      headers: {
+        signature: signature?.signature,
+        message: signature?.message,
+        address: address,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ order }),
+    };
+    setLoading(true);
+    request(options, function (error: any, response: any) {
+      if (error) setApiReturn("Something Went Wrong!");
+      setLoading(false);
+      console.log(response.body);
+    });
+    console.log(signature);
+    console.log(order);
   };
 
   return (
-    <div className="order-form">
-      {orderInputs.map((item, index) => (
-        <div className="order-inputs" key={index}>
-          <p className="input-title">{item.input}</p>
-          {item.required && error ? (
-            <p className="error-text">Required Field</p>
-          ) : (
-            ""
-          )}
+    <form className="order-form" onSubmit={(event) => submit(event)}>
+      <div className="top-chunk">
+        <h2>Ordering: Klima {ShirtNames[order.nft_tokenid]} T-Shirt</h2>
+        <h3>Size: {sizeIds[order.size]}</h3>
+        <img
+          src={ShirtImages[parseInt(order.nft_tokenid)]}
+          className="order-image"
+          alt={ShirtNames[order.nft_tokenid]}
+        />
+      </div>
+
+      <div className="form-chunk">
+        <h3>Personal Info</h3>
+        <div className="order-input name">
+          <label htmlFor="first_name">First*</label>
+          {error ? <p className="error-text">Required Field</p> : ""}
           <input
-            type={item.inputType}
-            className="order-inputs"
-            onChange={(val) =>
-              dispatch(changeInfo([item.id, val.target.value]))
+            className="order-input-box"
+            id="first_name"
+            type="text"
+            onChange={(event) => changeHandler(event)}
+          />
+        </div>
+
+        <div className="order-input name">
+          <label htmlFor="last_name">Last*</label>
+          {error ? <p className="error-text">Required Field</p> : ""}
+          <input
+            className="order-input-box"
+            id="last_name"
+            type="text"
+            onChange={(event) => changeHandler(event)}
+          />
+        </div>
+
+        <div className="order-input">
+          <label htmlFor="email">Email</label>
+          <input
+            className="order-input-box"
+            id="email"
+            type="text"
+            onChange={(event) => changeHandler(event)}
+          />
+        </div>
+      </div>
+
+      <div className="form-chunk">
+        <h3>Delivery Info</h3>
+        <div className="order-input">
+          <label htmlFor="address1">Street Address*</label>
+          {error ? <p className="error-text">Required Field</p> : ""}
+          <input
+            className="order-input-box"
+            id="address1"
+            type="text"
+            onChange={(event) => changeHandler(event)}
+          />
+        </div>
+
+        <div className="order-input">
+          <label htmlFor="address1">Street Address 2*</label>
+          {error ? <p className="error-text">Required Field</p> : ""}
+          <input
+            className="order-input-box"
+            id="address2"
+            type="text"
+            onChange={(event) => changeHandler(event)}
+          />
+        </div>
+
+        <div className="order-input">
+          <label htmlFor="city">City/Town*</label>
+          {error ? <p className="error-text">Required Field</p> : ""}
+          <input
+            className="order-input-box"
+            id="city"
+            type="text"
+            onChange={(event) => changeHandler(event)}
+          />
+        </div>
+
+        <div className="order-input">
+          <label htmlFor="zip">ZIP/Postal*</label>
+          {error ? <p className="error-text">Required Field</p> : ""}
+          <input
+            className="order-input-box"
+            id="zip"
+            type="text"
+            onChange={(event) => changeHandler(event)}
+          />
+        </div>
+
+        <div className="order-input">
+          <label htmlFor="country-dropdown">Country*</label>
+          {error ? <p className="error-text">Required Field</p> : ""}
+          <CountryDropdown
+            id="country"
+            value={order.country_code}
+            valueType="short"
+            priorityOptions={["CA", "US", "GB", "AU"]}
+            onChange={(value: string, e: ChangeEvent<Element>) =>
+              handleCountryChange(value, e)
             }
           />
         </div>
-      ))}
-      <div className="dropdowns">
-        <p className="input-title">Country*</p>
-        {error ? <p className="error-text">Required Field</p> : ""}
-        <CountryDropdown
-          id="country-dropdown"
-          value={country}
-          onChange={(val) => dispatch(changeCountry(val))}
-        />
-        {country === "" ? (
-          ""
-        ) : (
-          <>
-            <p className="input-title">Region*</p>
+
+        {order.country !== "" ? (
+          <div className="order-input">
+            <label htmlFor="region-dropdown">Region*</label>
             {error ? <p className="error-text">Required Field</p> : ""}
             <RegionDropdown
-              id="region-dropdown"
-              country={country}
-              value={region}
-              onChange={(val) => dispatch(changeRegion(val))}
+              id="region"
+              country={order.country_code}
+              countryValueType="short"
+              value={order.province_code}
+              valueType="short"
+              onChange={handleRegionChange}
             />
-          </>
+          </div>
+        ) : (
+          ""
         )}
       </div>
-      <div className="submit">
-        <button className="btn submitbtn" onClick={() => submit()}>
-          SUBMIT
-        </button>
+      <div className="form-chunk">
+        <input className="btn" type="submit" value="MANIFEST" />
       </div>
-    </div>
+    </form>
   );
 };
 
