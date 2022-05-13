@@ -120,16 +120,51 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
         address: address,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ order }),
+      body: JSON.stringify({
+        nft_address: order.nft_address,
+        nft_tokenid: order.nft_tokenid,
+        size: order.size,
+        email: order.email,
+        first_name: order.first_name,
+        last_name: order.last_name,
+        address1: order.address1,
+        address2: order.address2,
+        city: order.city,
+        state: order.state,
+        zip: order.zip,
+        country: order.country,
+        country_code: order.country_code,
+        province: order.province,
+        province_code: order.province_code,
+      }),
     };
+
     setLoading(true);
+    console.log(
+      JSON.stringify({
+        nft_address: order.nft_address,
+        nft_tokenid: order.nft_tokenid,
+        size: order.size,
+        email: order.email,
+        first_name: order.first_name,
+        last_name: order.last_name,
+        address1: order.address1,
+        address2: order.address2,
+        city: order.city,
+        state: order.state,
+        zip: order.zip,
+        country: order.country,
+        country_code: order.country_code,
+        province: order.province,
+        province_code: order.province_code,
+      })
+    );
+
     request(options, function (error: any, response: any) {
       if (error) setApiReturn("Something Went Wrong!");
       setLoading(false);
       console.log(response.body);
     });
-    console.log(signature);
-    console.log(order);
   };
 
   return (
@@ -182,7 +217,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
       <div className="form-chunk">
         <h3>Delivery Info</h3>
         <div className="order-input">
-          <label htmlFor="address1">Street Address*</label>
+          <label htmlFor="address1">Address*</label>
           {error ? <p className="error-text">Required Field</p> : ""}
           <input
             className="order-input-box"
@@ -193,7 +228,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
         </div>
 
         <div className="order-input">
-          <label htmlFor="address1">Street Address 2*</label>
+          <label htmlFor="address1">Address Line 2</label>
           {error ? <p className="error-text">Required Field</p> : ""}
           <input
             className="order-input-box"
