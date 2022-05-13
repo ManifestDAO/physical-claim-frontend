@@ -18,7 +18,7 @@ const ShopUp: React.FC<ShopUpProps> = function ({ setShopUp }) {
           CLOSE
         </p>
         {loading ? (
-          <img src={MNFSTLoader} />
+          <img src={MNFSTLoader} alt="Loading..." />
         ) : apiReturn ? (
           <h1>{apiReturn}</h1>
         ) : (
