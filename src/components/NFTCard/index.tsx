@@ -26,6 +26,7 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
   const [genesisSelected, setGenesisSelected] = useState<any>();
 
   const address = useSelector((state: RootState) => state.account.address);
+  const balances = useSelector((state: RootState) => state.nfts.balances);
   const nfts = useSelector((state: RootState) => state.nfts.nfts);
   const status = useSelector((state: RootState) => state.nfts.status);
 
@@ -68,6 +69,7 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
   }, [genesisSelected]);
 
   useEffect(() => {
+    if (address === undefined) return;
     try {
       dispatch(
         getNFTInfo({ address: address, chainId: chainId, library: library })
@@ -111,6 +113,9 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
                 alt="nft"
                 className="nft-image"
               />
+              <h3 className="nft-quantity">
+                x{balances.kliBal[item.id.tokenId]}
+              </h3>
               {klimaSelected === index ? (
                 <div className="claiminfo">
                   <label
@@ -168,6 +173,9 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
                 alt="nft"
                 className="nft-image"
               />
+              <h3 className="nft-quantity">
+                x{balances.genBal[item.id.tokenId]}
+              </h3>
               {genesisSelected === index ? (
                 <div className="claiminfo">
                   <label

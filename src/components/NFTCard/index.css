@@ -33,6 +33,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  z-index: 999;
 }
 
 .nft-card {
@@ -109,4 +110,9 @@ option {
   text-align: center;
   font-size: 50px;
   filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.651));
+}
+
+.nft-quantity {
+  margin: 0;
+  padding: 0;
 }
