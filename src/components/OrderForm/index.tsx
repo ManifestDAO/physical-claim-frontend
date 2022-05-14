@@ -26,6 +26,10 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
   const address = useSelector((state: RootState) => state.account.address);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    console.log(order);
+  }, []);
+
   const changeHandler = (event: any) => {
     dispatch(
       update({
@@ -94,6 +98,20 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
     }
   }
 
+  async function burn(address: string, library: any) {
+    try {
+      const provider = await library;
+      const signer = await provider.getSigner();
+      const burn = await signer.signMessage("Verify Wallet");
+
+      return {
+        burn,
+      };
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (
@@ -115,6 +133,11 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
     setError(false);
 
     const signature = await signMessage(address, library);
+
+    const burned: any = await burn(address, library);
+    if (burned.burn === undefined) {
+      window.alert("Must Burn NFT");
+    }
 
     var request = require("request");
     var options = {
@@ -146,30 +169,20 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
     };
 
     setLoading(true);
-    console.log(
-      JSON.stringify({
-        nft_address: order.nft_address,
-        nft_tokenid: order.nft_tokenid,
-        size: order.size,
-        email: order.email,
-        first_name: order.first_name,
-        last_name: order.last_name,
-        address1: order.address1,
-        address2: order.address2,
-        city: order.city,
-        state: order.state,
-        zip: order.zip,
-        country: order.country,
-        country_code: order.country_code,
-        province: order.province,
-        province_code: order.province_code,
-      })
-    );
 
     request(options, function (error: any, response: any) {
-      if (error) setApiReturn("Something Went Wrong!");
+      if (error) {
+        setApiReturn("Something Went Wrong!");
+        setLoading(false);
+        return;
+      }
+      if (!response.body.message) {
+        setApiReturn(`Order Placed! Confirmation: ${response.body.id}`);
+        setLoading(false);
+        return;
+      }
+      setApiReturn(response.body.message);
       setLoading(false);
-      console.log(response.body);
     });
   };
 
