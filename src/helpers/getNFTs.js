@@ -10,7 +10,10 @@ export async function fetchNFTS(address, chainId) {
   );
   const nfts = await web3.alchemy.getNfts({
     owner: address,
-    contractAddresses: [ADDRESSES[chainId].KLIMATEES],
+    contractAddresses: [
+      ADDRESSES[chainId].KLIMATEES,
+      ADDRESSES[chainId].GENESIS_HOODIES,
+    ],
   });
 
   return nfts;

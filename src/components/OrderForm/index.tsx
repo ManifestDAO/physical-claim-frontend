@@ -1,12 +1,18 @@
 import { useWeb3React } from "@web3-react/core";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState, useEffect } from "react";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
-import { ShirtNames, ShirtImages } from "../../constants/shirtIds";
+import {
+  KlimaShirtNames,
+  KlimaShirtImages,
+  GenesisShirtImages,
+  GenesisShirtNames,
+} from "../../constants/shirtIds";
 import { useDispatch, useSelector } from "react-redux";
 import { update } from "../../slices/OrderSlice";
 import { RootState } from "../../store";
 import "./index.css";
 import { sizeIds } from "../../constants/sizeIds";
+import NFTSlice from "../../slices/NFTSlice";
 
 interface OrderFormProps {
   setLoading: any;
@@ -169,15 +175,29 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
 
   return (
     <form className="order-form" onSubmit={(event) => submit(event)}>
-      <div className="top-chunk">
-        <h2>Ordering: Klima {ShirtNames[order.nft_tokenid]} T-Shirt</h2>
-        <h3>Size: {sizeIds[order.size]}</h3>
-        <img
-          src={ShirtImages[parseInt(order.nft_tokenid)]}
-          className="order-image"
-          alt={ShirtNames[order.nft_tokenid]}
-        />
-      </div>
+      {order.product === "klima" ? (
+        <div className="top-chunk">
+          <h2>Ordering: Klima {KlimaShirtNames[order.nft_tokenid]} T-Shirt</h2>
+          <h3>Size: {sizeIds[order.size]}</h3>
+          <img
+            src={KlimaShirtImages[order.nft_tokenid as any]}
+            className="order-image"
+            alt="NFT Image"
+          />
+        </div>
+      ) : (
+        <div className="top-chunk">
+          <h2>
+            Ordering: Genesis {GenesisShirtNames[order.nft_tokenid]} Hoodie
+          </h2>
+          <h3>Size: {sizeIds[order.size]}</h3>
+          <img
+            src={GenesisShirtImages[order.nft_tokenid as any]}
+            className="order-image"
+            alt="NFT Image"
+          />
+        </div>
+      )}
 
       <div className="form-chunk">
         <h3>Personal Info</h3>

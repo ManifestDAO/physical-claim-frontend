@@ -1,19 +1,39 @@
 import klimaTee1Cooperation from "../assets/nftimages/t-shirt-1-cooperation.gif";
-import klimaTee2Protection from "../assets/nftimages/t-shirt-2-protection.gif";
-import klimaTee3Growth from "../assets/nftimages/t-shirt-3-growth.gif";
+import klimaTee2Growth from "../assets/nftimages/t-shirt-3-growth.gif";
+import klimaTee3Protection from "../assets/nftimages/t-shirt-2-protection.gif";
+
+import genesisHoodie1Creation from "../assets/nftimages/01_creation.gif";
+import genesisHoodie2Abundance from "../assets/nftimages/02_abundance.gif";
+import genesisHoodie3Flow from "../assets/nftimages/03_flow.gif";
 
 const cooperationShirtID: any = 1;
-const protectionShirtID: any = 2;
-const growthShirtID: any = 3;
+const growthShirtID: any = 2;
+const protectionShirtID: any = 3;
 
-export const ShirtNames: any = {
+const creationHoodieID: any = 1;
+const abundanceHoodieID: any = 2;
+const flowHoodieID: any = 3;
+
+export const KlimaShirtNames: any = {
   [cooperationShirtID]: "Co-Operation",
-  [protectionShirtID]: "Protection",
   [growthShirtID]: "Growth",
+  [protectionShirtID]: "Protection",
 };
 
-export const ShirtImages = {
+export const KlimaShirtImages = {
   [cooperationShirtID]: klimaTee1Cooperation,
-  [protectionShirtID]: klimaTee2Protection,
-  [growthShirtID]: klimaTee3Growth,
+  [growthShirtID]: klimaTee2Growth,
+  [protectionShirtID]: klimaTee3Protection,
+};
+
+export const GenesisShirtNames: any = {
+  [creationHoodieID]: "Creation",
+  [abundanceHoodieID]: "Abundance",
+  [flowHoodieID]: "Flow",
+};
+
+export const GenesisShirtImages: any = {
+  [creationHoodieID]: genesisHoodie1Creation,
+  [abundanceHoodieID]: genesisHoodie2Abundance,
+  [flowHoodieID]: genesisHoodie3Flow,
 };

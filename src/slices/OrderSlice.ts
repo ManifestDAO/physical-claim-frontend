@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  product: "",
   nft_address: "",
   nft_tokenid: "",
   size: "xs",
@@ -40,6 +41,7 @@ const OrderSlice = createSlice({
               ...state,
               [payload.key[0]]: payload.value[0],
               [payload.key[1]]: payload.value[1],
+              [payload.key[2]]: payload.value[2],
             };
           case "update_size":
             return {
