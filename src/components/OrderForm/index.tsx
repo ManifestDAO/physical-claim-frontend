@@ -102,7 +102,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
     try {
       const provider = await library;
       const signer = await provider.getSigner();
-      const burn = await signer.signMessage("Verify Wallet");
+      const burn = await signer.signMessage("This is where you burn NFT");
 
       return {
         burn,
@@ -135,8 +135,9 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
     const signature = await signMessage(address, library);
 
     const burned: any = await burn(address, library);
-    if (burned.burn === undefined) {
-      window.alert("Must Burn NFT");
+    if (burned === undefined) {
+      window.alert("You must burn the NFT to place order");
+      return;
     }
 
     var request = require("request");
