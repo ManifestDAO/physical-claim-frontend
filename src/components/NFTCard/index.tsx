@@ -17,13 +17,14 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
   const { chainId } = useWeb3React();
   const dispatch = useDispatch();
 
-  const [selected, setSelected] = useState(NaN);
+  const [selected, setSelected] = useState<number>();
 
   const address = useSelector((state: RootState) => state.account.address);
   const nfts = useSelector((state: RootState) => state.nfts.nfts);
   const status = useSelector((state: RootState) => state.nfts.status);
 
   useEffect(() => {
+    if (selected === undefined) return;
     try {
       dispatch(
         update({

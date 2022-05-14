@@ -88,6 +88,24 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
     }
   }
 
+  async function burnNFT(address: string, library: any) {
+    try {
+      var burn = false;
+      const provider = await library;
+      const signer = await provider.getSigner();
+      const signature = await signer.signMessage("This is where we burn NFT");
+      var burn = true;
+
+      return {
+        burn,
+      };
+    } catch (err) {
+      console.log(err);
+      let burn = false;
+      return burn;
+    }
+  }
+
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (
@@ -109,6 +127,12 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
     setError(false);
 
     const signature = await signMessage(address, library);
+
+    const burn = await burnNFT(address, library);
+    if (burn === false) {
+      window.alert("Must burn NFT to order");
+      return;
+    }
 
     var request = require("request");
     var options = {
@@ -140,29 +164,13 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
     };
 
     setLoading(true);
-    console.log(
-      JSON.stringify({
-        nft_address: order.nft_address,
-        nft_tokenid: order.nft_tokenid,
-        size: order.size,
-        email: order.email,
-        first_name: order.first_name,
-        last_name: order.last_name,
-        address1: order.address1,
-        address2: order.address2,
-        city: order.city,
-        state: order.state,
-        zip: order.zip,
-        country: order.country,
-        country_code: order.country_code,
-        province: order.province,
-        province_code: order.province_code,
-      })
-    );
 
     request(options, function (error: any, response: any) {
-      if (error) setApiReturn("Something Went Wrong!");
-      setLoading(false);
+      if (error) {
+        setApiReturn("Something Went Wrong!");
+        setLoading(false);
+        return;
+      }
       console.log(response.body);
     });
   };
