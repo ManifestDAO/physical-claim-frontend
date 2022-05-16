@@ -1,0 +1,104 @@
+.nft-screen {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+}
+
+.nft-screen-bg {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  top: 15%;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  position: fixed;
+}
+
+.nft-card {
+  margin: 0.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.5em;
+  max-width: 95vw;
+  width: 300px;
+  height: 500px;
+  background-color: rgba(136, 136, 136, 0.301);
+  transition: 0.2s;
+  z-index: 1;
+}
+
+.nft-card:hover {
+  cursor: pointer;
+  background-color: rgba(136, 136, 136, 0.781);
+}
+
+.nft-card.active {
+  height: fit-content;
+  border: solid;
+  border-color: purple;
+  background-color: rgba(128, 0, 128, 0.562);
+  box-shadow: 0 0 50px rgba(255, 0, 234, 0.274);
+  transition: 0.2s;
+}
+
+.nft-image {
+  max-width: 95%;
+  margin: 1em;
+}
+
+.nft-title {
+  margin-bottom: 0;
+  margin-top: 1em;
+}
+
+.nft-dropdown {
+  display: flex;
+  flex-direction: column;
+}
+
+.claiminfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+label {
+  text-align: center;
+}
+
+.nft-size-options {
+  background-color: rgb(71, 42, 70);
+  color: white;
+  border: none;
+  border-radius: 1.5em;
+  margin-top: 1em;
+  padding: 0.5em;
+}
+
+option {
+  border-radius: 1.5em;
+}
+
+.title {
+  width: 100vw;
+  text-align: center;
+  font-size: 50px;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.651));
+}
