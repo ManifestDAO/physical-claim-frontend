@@ -13,6 +13,10 @@ import { RootState } from "../../store";
 import "./index.css";
 import { sizeIds } from "../../constants/sizeIds";
 import NFTSlice from "../../slices/NFTSlice";
+import { ethers } from "ethers";
+import { ADDRESSES } from "../../constants/addresses";
+import { BurnABI } from "../../constants/ABIs/BurnABI";
+import { wait } from "@testing-library/user-event/dist/utils";
 
 interface OrderFormProps {
   setLoading: any;
@@ -20,8 +24,9 @@ interface OrderFormProps {
 }
 
 const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
-  const { library } = useWeb3React();
+  const { library, chainId } = useWeb3React();
   const [error, setError] = useState(false);
+  const [orderState, setOrderState] = useState("");
   const order = useSelector((state: RootState) => state.order);
   const address = useSelector((state: RootState) => state.account.address);
   const dispatch = useDispatch();
@@ -98,14 +103,28 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
     }
   }
 
-  async function burn(address: string, library: any) {
+  async function burn(address: string, library: any, chainId: any) {
     try {
       const provider = await library;
       const signer = await provider.getSigner();
-      const burn = await signer.signMessage("This is where you burn NFT");
+      const contract = new ethers.Contract(
+        ADDRESSES[chainId].BURN_CONTRACT,
+        BurnABI[chainId],
+        signer
+      );
+
+      console.log(order.nft_address);
+      console.log(order.nft_tokenid);
+      const burned = await contract.burn(
+        order.nft_address,
+        order.nft_tokenid,
+        1
+      );
+
+      const transaction = await wait(burned);
 
       return {
-        burn,
+        transaction,
       };
     } catch (err) {
       console.log(err);
@@ -131,15 +150,18 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
       return;
     }
     setError(false);
+    setOrderState("verifying");
 
     const signature = await signMessage(address, library);
 
-    const burned: any = await burn(address, library);
+    setOrderState("burning");
+    const burned: any = await burn(address, library, chainId);
     if (burned === undefined) {
-      window.alert("You must burn the NFT to place order");
+      setApiReturn("NFT not burned");
       return;
     }
 
+    setOrderState("ordering");
     var request = require("request");
     var options = {
       method: "POST",
@@ -177,7 +199,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
         setLoading(false);
         return;
       }
-      if (!response.body.message) {
+      if (response.body.id !== undefined) {
         setApiReturn(`Order Placed! Confirmation: ${response.body.id}`);
         setLoading(false);
         return;
@@ -326,7 +348,17 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
         )}
       </div>
       <div className="form-chunk">
-        <input className="btn" type="submit" value="MANIFEST" />
+        {orderState === "" ? (
+          <input className="btn" type="submit" value="MANIFEST" />
+        ) : orderState === "verifying" ? (
+          <h2>Verifying ownership through wallet...</h2>
+        ) : orderState === "burning" ? (
+          <h2>Burning NFT...</h2>
+        ) : orderState === "ordering" ? (
+          <h2>Placing order through Shopify...</h2>
+        ) : (
+          ""
+        )}
       </div>
     </form>
   );

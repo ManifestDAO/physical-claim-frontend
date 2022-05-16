@@ -20,7 +20,7 @@ const ShopUp: React.FC<ShopUpProps> = function ({ setShopUp }) {
         {loading ? (
           <img src={MNFSTLoader} alt="Loading..." />
         ) : apiReturn ? (
-          <h1>{apiReturn}</h1>
+          <h1 className="order-finished">{apiReturn}</h1>
         ) : (
           <OrderForm setLoading={setLoading} setApiReturn={setApiReturn} />
         )}
