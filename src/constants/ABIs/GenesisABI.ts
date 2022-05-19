@@ -1,4 +1,4 @@
-export const GenesisABI = {
+export const GenesisABI: any = {
   1: [],
   4: [
     {

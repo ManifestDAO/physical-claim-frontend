@@ -1,7 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { ethers } from "ethers";
+import { GenesisABI } from "../constants/ABIs/GenesisABI";
+import { KlimaABI } from "../constants/ABIs/KlimaABI";
+import { ADDRESSES } from "../constants/addresses";
 
 interface AccountAsyncThunk {
   account: string;
+  library: any;
+  chainId: number;
 }
 
 export const getAccountInfo: any = createAsyncThunk(

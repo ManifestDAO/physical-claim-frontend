@@ -1,4 +1,4 @@
-export const KlimaABI = {
+export const KlimaABI: any = {
   1: [],
   4: [
     {

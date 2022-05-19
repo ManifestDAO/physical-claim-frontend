@@ -17,6 +17,7 @@ import { ethers } from "ethers";
 import { ADDRESSES } from "../../constants/addresses";
 import { BurnABI } from "../../constants/ABIs/BurnABI";
 import { wait } from "@testing-library/user-event/dist/utils";
+import { KlimaABI } from "../../constants/ABIs/KlimaABI";
 
 interface OrderFormProps {
   setLoading: any;
@@ -103,7 +104,37 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
     }
   }
 
-  async function burn(address: string, library: any, chainId: any) {
+  async function approve() {
+    try {
+      const provider = await library;
+      const signer = await provider.getSigner();
+      const contract = new ethers.Contract(
+        order.nft_address,
+        KlimaABI[chainId as number],
+        signer
+      );
+      const check = await contract.isApprovedForAll(
+        address,
+        ADDRESSES[chainId as number].BURN_CONTRACT
+      );
+
+      if (check === false) {
+        const approved = await contract.setApprovalForAll(
+          ADDRESSES[chainId as number].BURN_CONTRACT,
+          true
+        );
+
+        const transaction = await approved.wait();
+        return transaction;
+      }
+      const transaction = "already approved";
+      return transaction;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function burn(library: any, chainId: any) {
     try {
       const provider = await library;
       const signer = await provider.getSigner();
@@ -112,16 +143,13 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
         BurnABI[chainId],
         signer
       );
-
-      console.log(order.nft_address);
-      console.log(order.nft_tokenid);
       const burned = await contract.burn(
         order.nft_address,
         order.nft_tokenid,
         1
       );
 
-      const transaction = await wait(burned);
+      const transaction = await burned.wait();
 
       return {
         transaction,
@@ -154,8 +182,12 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
 
     const signature = await signMessage(address, library);
 
+    setOrderState("approving");
+    const approvedReceipt = await approve();
+    console.log(approvedReceipt);
+
     setOrderState("burning");
-    const burned: any = await burn(address, library, chainId);
+    const burned = await burn(library, chainId);
     if (burned === undefined) {
       setApiReturn("NFT not burned");
       return;
@@ -352,10 +384,12 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
           <input className="btn" type="submit" value="MANIFEST" />
         ) : orderState === "verifying" ? (
           <h2>Verifying ownership through wallet...</h2>
+        ) : orderState === "approving" ? (
+          <h2>Approving NFT burn...</h2>
         ) : orderState === "burning" ? (
           <h2>Burning NFT...</h2>
         ) : orderState === "ordering" ? (
-          <h2>Placing order through Shopify...</h2>
+          <h2>Placing order...</h2>
         ) : (
           ""
         )}
