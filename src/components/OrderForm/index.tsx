@@ -226,6 +226,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
     setLoading(true);
 
     request(options, function (error: any, response: any) {
+      console.log(response);
       if (error) {
         setApiReturn("Something Went Wrong!");
         setLoading(false);
