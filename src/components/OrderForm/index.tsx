@@ -223,22 +223,17 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
       }),
     };
 
-    setLoading(true);
-
     request(options, function (error: any, response: any) {
       console.log(response);
       if (error) {
         setApiReturn("Something Went Wrong!");
-        setLoading(false);
         return;
       }
       if (response.body.id !== undefined) {
         setApiReturn(`Order Placed! Confirmation: ${response.body.id}`);
-        setLoading(false);
         return;
       }
-      setApiReturn(response.body.message);
-      setLoading(false);
+      setApiReturn(response.toString());
     });
   };
 
