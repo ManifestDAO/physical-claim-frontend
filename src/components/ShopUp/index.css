@@ -41,3 +41,12 @@
 .closebtn:hover {
   cursor: pointer;
 }
+
+.order-finished {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 3em;
+  max-width: 95vw;
+}

@@ -1,12 +1,23 @@
 import { useWeb3React } from "@web3-react/core";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState, useEffect } from "react";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
-import { ShirtNames, ShirtImages } from "../../constants/shirtIds";
+import {
+  KlimaShirtNames,
+  KlimaShirtImages,
+  GenesisShirtImages,
+  GenesisShirtNames,
+} from "../../constants/shirtIds";
 import { useDispatch, useSelector } from "react-redux";
 import { update } from "../../slices/OrderSlice";
 import { RootState } from "../../store";
 import "./index.css";
 import { sizeIds } from "../../constants/sizeIds";
+import NFTSlice from "../../slices/NFTSlice";
+import { ethers } from "ethers";
+import { ADDRESSES } from "../../constants/addresses";
+import { BurnABI } from "../../constants/ABIs/BurnABI";
+import { wait } from "@testing-library/user-event/dist/utils";
+import { KlimaABI } from "../../constants/ABIs/KlimaABI";
 
 interface OrderFormProps {
   setLoading: any;
@@ -14,11 +25,16 @@ interface OrderFormProps {
 }
 
 const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
-  const { library } = useWeb3React();
+  const { library, chainId } = useWeb3React();
   const [error, setError] = useState(false);
+  const [orderState, setOrderState] = useState("");
   const order = useSelector((state: RootState) => state.order);
   const address = useSelector((state: RootState) => state.account.address);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log(order);
+  }, []);
 
   const changeHandler = (event: any) => {
     dispatch(
@@ -88,21 +104,58 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
     }
   }
 
-  async function burnNFT(address: string, library: any) {
+  async function approve() {
     try {
-      var burn = false;
       const provider = await library;
       const signer = await provider.getSigner();
-      const signature = await signer.signMessage("This is where we burn NFT");
-      var burn = true;
+      const contract = new ethers.Contract(
+        order.nft_address,
+        KlimaABI[chainId as number],
+        signer
+      );
+      const check = await contract.isApprovedForAll(
+        address,
+        ADDRESSES[chainId as number].BURN_CONTRACT
+      );
+
+      if (check === false) {
+        const approved = await contract.setApprovalForAll(
+          ADDRESSES[chainId as number].BURN_CONTRACT,
+          true
+        );
+
+        const transaction = await approved.wait();
+        return transaction;
+      }
+      const transaction = "already approved";
+      return transaction;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function burn(library: any, chainId: any) {
+    try {
+      const provider = await library;
+      const signer = await provider.getSigner();
+      const contract = new ethers.Contract(
+        ADDRESSES[chainId].BURN_CONTRACT,
+        BurnABI[chainId],
+        signer
+      );
+      const burned = await contract.burn(
+        order.nft_address,
+        order.nft_tokenid,
+        1
+      );
+
+      const transaction = await burned.wait();
 
       return {
-        burn,
+        transaction,
       };
     } catch (err) {
       console.log(err);
-      let burn = false;
-      return burn;
     }
   }
 
@@ -125,15 +178,22 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
       return;
     }
     setError(false);
+    setOrderState("verifying");
 
     const signature = await signMessage(address, library);
 
-    const burn = await burnNFT(address, library);
-    if (burn === false) {
-      window.alert("Must burn NFT to order");
+    setOrderState("approving");
+    const approvedReceipt = await approve();
+    console.log(approvedReceipt);
+
+    setOrderState("burning");
+    const burned = await burn(library, chainId);
+    if (burned === undefined) {
+      setApiReturn("NFT not burned");
       return;
     }
 
+    setOrderState("ordering");
     var request = require("request");
     var options = {
       method: "POST",
@@ -171,21 +231,65 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
         setLoading(false);
         return;
       }
-      console.log(response.body);
+      if (response.body.id !== undefined) {
+        setApiReturn(`Order Placed! Confirmation: ${response.body.id}`);
+        setLoading(false);
+        return;
+      }
+      setApiReturn(response.body.message);
+      setLoading(false);
     });
   };
 
+  let formButton;
+
+  switch (orderState) {
+    case "":
+      formButton = <input className="btn" type="submit" value="MANIFEST" />;
+      break;
+    case "verifying":
+      formButton = (
+        <h2 className="order-action">Verifying ownership through wallet...</h2>
+      );
+      break;
+    case "approving":
+      formButton = <h2 className="order-action">Approving Burn...</h2>;
+      break;
+    case "burning":
+      formButton = <h2 className="order-action">Burning NFT...</h2>;
+      break;
+    case "ordering":
+      formButton = <h2 className="order-action">Placing order...</h2>;
+      break;
+    default:
+      break;
+  }
+
   return (
     <form className="order-form" onSubmit={(event) => submit(event)}>
-      <div className="top-chunk">
-        <h2>Ordering: Klima {ShirtNames[order.nft_tokenid]} T-Shirt</h2>
-        <h3>Size: {sizeIds[order.size]}</h3>
-        <img
-          src={ShirtImages[parseInt(order.nft_tokenid)]}
-          className="order-image"
-          alt={ShirtNames[order.nft_tokenid]}
-        />
-      </div>
+      {order.product === "klima" ? (
+        <div className="top-chunk">
+          <h2>Ordering: Klima {KlimaShirtNames[order.nft_tokenid]} T-Shirt</h2>
+          <h3>Size: {sizeIds[order.size]}</h3>
+          <img
+            src={KlimaShirtImages[order.nft_tokenid as any]}
+            className="order-image"
+            alt="NFT Image"
+          />
+        </div>
+      ) : (
+        <div className="top-chunk">
+          <h2>
+            Ordering: Genesis {GenesisShirtNames[order.nft_tokenid]} Hoodie
+          </h2>
+          <h3>Size: {sizeIds[order.size]}</h3>
+          <img
+            src={GenesisShirtImages[order.nft_tokenid as any]}
+            className="order-image"
+            alt="NFT Image"
+          />
+        </div>
+      )}
 
       <div className="form-chunk">
         <h3>Personal Info</h3>
@@ -299,9 +403,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
           ""
         )}
       </div>
-      <div className="form-chunk">
-        <input className="btn" type="submit" value="MANIFEST" />
-      </div>
+      <div className="form-chunk">{formButton}</div>
     </form>
   );
 };

@@ -94,3 +94,7 @@
 .order-image {
   max-height: 300px;
 }
+
+.order-action {
+  text-align: center;
+}
