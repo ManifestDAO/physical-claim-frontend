@@ -135,7 +135,7 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
                       <option value="medium">M - Medium</option>
                       <option value="l">L - Large</option>
                       <option value="xl">XL - Extra Large</option>
-                      <option value="xxl">XXL - Double Extra Large</option>
+                      <option value="2xl">XXL - Double Extra Large</option>
                     </select>
                   </label>
                   <button className="btn" onClick={() => setShopUp(true)}>

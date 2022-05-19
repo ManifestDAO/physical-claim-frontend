@@ -232,7 +232,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
       ) {
         setApiReturn(JSON.parse(response.body).message);
       }
-      console.log(response.body);
+      console.log(JSON.parse(response.body).message);
       if (error) {
         setApiReturn(`Something Went Wrong! ${error}`);
         setLoading(false);
@@ -244,7 +244,9 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
         );
       }
       setApiReturn(
-        `Success! Order ID: ${JSON.parse(response.request.response.body).id}`
+        `Success! Order ID: ${JSON.parse(
+          response.request.response.body
+        ).id.toString()}`
       );
       setLoading(false);
     });

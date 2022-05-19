@@ -3,7 +3,7 @@ const s: string = "s";
 const m: string = "m";
 const l: string = "l";
 const xl: string = "xl";
-const xxl: string = "xxl";
+const xxl: string = "2xl";
 
 export const sizeIds = {
   [xs]: "Extra Small",
@@ -11,5 +11,5 @@ export const sizeIds = {
   [m]: "Medium",
   [l]: "Large",
   [xl]: "Extra Large",
-  [xxl]: "Double Extra Large",
+  [2xl]: "Double Extra Large",
 };
