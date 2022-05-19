@@ -11,5 +11,5 @@ export const sizeIds = {
   [m]: "Medium",
   [l]: "Large",
   [xl]: "Extra Large",
-  [2xl]: "Double Extra Large",
+  [xxl]: "Double Extra Large",
 };
