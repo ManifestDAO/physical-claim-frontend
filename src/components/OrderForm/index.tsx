@@ -236,7 +236,9 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
       if (!response.request.response.body.id) {
         setApiReturn(`Error: ${response.request.response.body.message}`);
       }
-      setApiReturn(`Success! Order ID: ${response.request.response.body.id}`);
+      setApiReturn(
+        `Success! Order ID: ${JSON.parse(response.request.response.body).id}`
+      );
       setLoading(false);
     });
   };
