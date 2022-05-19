@@ -241,6 +241,30 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
     });
   };
 
+  let formButton;
+
+  switch (orderState) {
+    case "":
+      formButton = <input className="btn" type="submit" value="MANIFEST" />;
+      break;
+    case "verifying":
+      formButton = (
+        <h2 className="order-action">Verifying ownership through wallet...</h2>
+      );
+      break;
+    case "approving":
+      formButton = <h2 className="order-action">Approving Burn...</h2>;
+      break;
+    case "burning":
+      formButton = <h2 className="order-action">Burning NFT...</h2>;
+      break;
+    case "ordering":
+      formButton = <h2 className="order-action">Placing order...</h2>;
+      break;
+    default:
+      break;
+  }
+
   return (
     <form className="order-form" onSubmit={(event) => submit(event)}>
       {order.product === "klima" ? (
@@ -379,23 +403,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
           ""
         )}
       </div>
-      <div className="form-chunk">
-        {orderState === "" ? (
-          <input className="btn" type="submit" value="MANIFEST" />
-        ) : orderState === "verifying" ? (
-          <h2 className="order-action">
-            Verifying ownership through wallet...
-          </h2>
-        ) : orderState === "approving" ? (
-          <h2 className="order-action">Approving NFT burn...</h2>
-        ) : orderState === "burning" ? (
-          <h2 className="order-action">Burning NFT...</h2>
-        ) : orderState === "ordering" ? (
-          <h2 className="order-action">Placing order...</h2>
-        ) : (
-          ""
-        )}
-      </div>
+      <div className="form-chunk">{formButton}</div>
     </form>
   );
 };
