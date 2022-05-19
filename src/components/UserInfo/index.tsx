@@ -6,6 +6,7 @@ import MMIcon from "../../assets/walleticons/mmicon.png";
 import WCIcon from "../../assets/walleticons/wcicon.png";
 import { useWeb3React } from "@web3-react/core";
 import { changeProvider } from "../../slices/AccountSlice";
+import { clear } from "../../slices/NFTSlice";
 
 export default function UserInfo() {
   const { deactivate } = useWeb3React();
@@ -17,8 +18,9 @@ export default function UserInfo() {
   const address = useSelector((state: RootState) => state.account.address);
 
   const logOut = () => {
-    deactivate();
+    dispatch(clear({ klima: [], genesis: [] }));
     dispatch(changeProvider(undefined));
+    deactivate();
   };
 
   return (

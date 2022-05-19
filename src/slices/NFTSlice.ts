@@ -59,7 +59,11 @@ const reducers = {};
 const NFTSlice = createSlice({
   name: "nfts",
   initialState,
-  reducers,
+  reducers: {
+    clear(state, action) {
+      state.nfts = action.payload;
+    },
+  },
   extraReducers: {
     [getNFTInfo.pending]: (state, action) => {
       state.status = "loading";
@@ -89,3 +93,4 @@ const NFTSlice = createSlice({
 });
 
 export default NFTSlice.reducer;
+export const clear = NFTSlice.actions.clear;

@@ -8,7 +8,7 @@ import {
   GenesisShirtImages,
 } from "../../constants/shirtIds";
 import { useDispatch, useSelector } from "react-redux";
-import { getNFTInfo } from "../../slices/NFTSlice";
+import { getNFTInfo, clear } from "../../slices/NFTSlice";
 import { RootState } from "../../store";
 import { useWeb3React } from "@web3-react/core";
 import { update } from "../../slices/OrderSlice";
@@ -71,6 +71,7 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
   useEffect(() => {
     if (address === undefined) return;
     try {
+      dispatch(clear({ klima: [], genesis: [] }));
       dispatch(
         getNFTInfo({ address: address, chainId: chainId, library: library })
       );

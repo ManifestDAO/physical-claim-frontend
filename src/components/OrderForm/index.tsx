@@ -383,13 +383,15 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
         {orderState === "" ? (
           <input className="btn" type="submit" value="MANIFEST" />
         ) : orderState === "verifying" ? (
-          <h2>Verifying ownership through wallet...</h2>
+          <h2 className="order-action">
+            Verifying ownership through wallet...
+          </h2>
         ) : orderState === "approving" ? (
-          <h2>Approving NFT burn...</h2>
+          <h2 className="order-action">Approving NFT burn...</h2>
         ) : orderState === "burning" ? (
-          <h2>Burning NFT...</h2>
+          <h2 className="order-action">Burning NFT...</h2>
         ) : orderState === "ordering" ? (
-          <h2>Placing order...</h2>
+          <h2 className="order-action">Placing order...</h2>
         ) : (
           ""
         )}
