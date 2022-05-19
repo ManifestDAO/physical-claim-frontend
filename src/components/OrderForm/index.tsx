@@ -226,15 +226,22 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
     setLoading(true);
 
     request(options, function (error: any, response: any) {
-      console.log(response);
+      if (
+        response.body ===
+        '{"message":"Something went wrong. error(Error: Product not found)"}'
+      ) {
+        setApiReturn(JSON.parse(response.body).message);
+      }
       console.log(response.body);
       if (error) {
-        setApiReturn("Something Went Wrong!");
+        setApiReturn(`Something Went Wrong! ${error}`);
         setLoading(false);
         return;
       }
       if (!response.request.response.body.id) {
-        setApiReturn(`Error: ${response.request.response.body.message}`);
+        setApiReturn(
+          `Error: ${JSON.parse(response.request.response.body).message}`
+        );
       }
       setApiReturn(
         `Success! Order ID: ${JSON.parse(response.request.response.body).id}`
