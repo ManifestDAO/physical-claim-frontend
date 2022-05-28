@@ -1,11 +1,15 @@
 import React from "react";
 import { Web3ReactProvider } from "@web3-react/core";
-import { Web3Provider } from "@ethersproject/providers";
+import {
+  ExternalProvider,
+  JsonRpcFetchFunc,
+  Web3Provider,
+} from "@ethersproject/providers";
 import App from "./App";
 import { Provider } from "react-redux";
 import { store } from "./store";
 
-const getLibrary = async (connector) => {
+const getLibrary = async (connector: ExternalProvider | JsonRpcFetchFunc) => {
   const library = new Web3Provider(connector);
   return library;
 };

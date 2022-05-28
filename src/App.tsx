@@ -1,64 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { useWeb3React } from "@web3-react/core";
-import "./App.css";
-import { useDispatch } from "react-redux";
-import { changeProvider, getAccountInfo } from "./slices/AccountSlice";
-import { chainIds } from "./constants/chainIds";
-import NFTCard from "./components/NFTCard/index";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Welcome from "./views/Welcome";
-import ShopUp from "./components/ShopUp";
-import {
-  MetaMask,
-  resetWalletConnectConnector,
-  WalletConnect,
-} from "./helpers/connectors";
+import Home from "./views/Home";
+import Inventory from "./views/Inventory";
+import "./App.css";
 
-function App() {
-  const { account, chainId, activate, deactivate } = useWeb3React();
-  const [shopUp, setShopUp] = useState(false);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (localStorage.getItem("Provider") === null) return;
-    if (localStorage.getItem("Provider") === "metamask") {
-      activate(MetaMask);
-      dispatch(changeProvider("metamask"));
-      return;
-    }
-    if (localStorage.getItem("Provider") === "walletconnect") {
-      resetWalletConnectConnector();
-      activate(WalletConnect);
-      dispatch(changeProvider("walletconnect"));
-      return;
-    }
-  }, [activate, dispatch]);
-
-  useEffect(() => {
-    dispatch(getAccountInfo({ account: account }));
-  }, [account, dispatch]);
-
-  useEffect(() => {
-    if (chainId !== chainIds.ETH_RINKEBY_TESTNET && account !== undefined) {
-      window.alert("Connect to Rinkeby Testnet");
-      deactivate();
-    }
-  }, [chainId, account, deactivate]);
-
+const App = () => {
   return (
     <div className="App">
-      {account ? (
-        <>
-          <Navbar />
-          {shopUp ? <ShopUp setShopUp={setShopUp} /> : ""}
-          <NFTCard shopUp={shopUp} setShopUp={setShopUp} />
-        </>
-      ) : (
-        <Welcome />
-      )}
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route key="1" path="/" element={<Home />} />
+          <Route key="2" path="/inventory" element={<Inventory />} />
+        </Routes>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;
