@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import { changeProvider, getAccountInfo } from "../../slices/AccountSlice";
 import { chainIds } from "../../constants/chainIds";
 import NFTCard from "../../components/NFTCard/index";
-import Navbar from "../../components/Navbar";
 import ShopUp from "../../components/ShopUp";
 import {
   MetaMask,
