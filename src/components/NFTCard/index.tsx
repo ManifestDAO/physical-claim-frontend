@@ -31,10 +31,6 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
   const status = useSelector((state: RootState) => state.nfts.status);
 
   useEffect(() => {
-    console.log(nfts);
-  }, [nfts]);
-
-  useEffect(() => {
     if (klimaSelected === undefined) return;
     try {
       dispatch(
