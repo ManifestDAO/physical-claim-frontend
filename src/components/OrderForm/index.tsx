@@ -1,5 +1,5 @@
 import { useWeb3React } from "@web3-react/core";
-import React, { ChangeEvent, useState, useEffect } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 import {
   KlimaShirtNames,
@@ -12,11 +12,9 @@ import { update } from "../../slices/OrderSlice";
 import { RootState } from "../../store";
 import "./index.css";
 import { sizeIds } from "../../constants/sizeIds";
-import NFTSlice from "../../slices/NFTSlice";
 import { ethers } from "ethers";
 import { ADDRESSES } from "../../constants/addresses";
 import { BurnABI } from "../../constants/ABIs/BurnABI";
-import { wait } from "@testing-library/user-event/dist/utils";
 import { KlimaABI } from "../../constants/ABIs/KlimaABI";
 
 interface OrderFormProps {
@@ -31,10 +29,6 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
   const order = useSelector((state: RootState) => state.order);
   const address = useSelector((state: RootState) => state.account.address);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log(order);
-  }, []);
 
   const changeHandler = (event: any) => {
     dispatch(
@@ -285,7 +279,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
           <img
             src={KlimaShirtImages[order.nft_tokenid as any]}
             className="order-image"
-            alt="NFT Image"
+            alt="NFT"
           />
         </div>
       ) : (
@@ -297,7 +291,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
           <img
             src={GenesisShirtImages[order.nft_tokenid as any]}
             className="order-image"
-            alt="NFT Image"
+            alt="NFT"
           />
         </div>
       )}

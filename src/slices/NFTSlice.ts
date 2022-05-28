@@ -1,6 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { ethers } from "ethers";
-import { KlimaABI } from "../constants/ABIs/KlimaABI";
 import { ADDRESSES } from "../constants/addresses";
 import { getNFTBalances } from "../helpers/getNFTBalances";
 import { fetchNFTS } from "../helpers/getNFTs";
@@ -54,7 +52,6 @@ const initialState: NFTState = {
     },
   },
 };
-const reducers = {};
 
 const NFTSlice = createSlice({
   name: "nfts",
