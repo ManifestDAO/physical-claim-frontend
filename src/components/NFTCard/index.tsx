@@ -31,6 +31,10 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
   const status = useSelector((state: RootState) => state.nfts.status);
 
   useEffect(() => {
+    console.log(nfts);
+  }, [nfts]);
+
+  useEffect(() => {
     if (klimaSelected === undefined) return;
     try {
       dispatch(
@@ -47,7 +51,7 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
     } catch (err) {
       console.log(err);
     }
-  }, [klimaSelected]);
+  }, [klimaSelected, dispatch, nfts.klima]);
 
   useEffect(() => {
     if (genesisSelected === undefined) return;
@@ -66,7 +70,7 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
     } catch (err) {
       console.log(err);
     }
-  }, [genesisSelected]);
+  }, [genesisSelected, dispatch, nfts.genesis]);
 
   useEffect(() => {
     if (address === undefined) return;
@@ -78,7 +82,7 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
     } catch (err) {
       console.log(err);
     }
-  }, [address]);
+  }, [address, chainId, dispatch, library]);
 
   const handleChange = (event: any) => {
     dispatch(

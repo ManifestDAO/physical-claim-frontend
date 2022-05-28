@@ -1,8 +1,3 @@
-interface addressInterface {
-  1: any;
-  4: any;
-}
-
 export const ADDRESSES: { [key: number]: any } = {
   1: {
     KLIMATEES: "0xdCEA6Bdc97B964c9e3F5cE4d660797d8f7df9085",

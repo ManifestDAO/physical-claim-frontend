@@ -33,18 +33,18 @@ function App() {
       dispatch(changeProvider("walletconnect"));
       return;
     }
-  }, []);
+  }, [activate, dispatch]);
 
   useEffect(() => {
     dispatch(getAccountInfo({ account: account }));
-  }, [account]);
+  }, [account, dispatch]);
 
   useEffect(() => {
     if (chainId !== chainIds.ETH_RINKEBY_TESTNET && account !== undefined) {
       window.alert("Connect to Rinkeby Testnet");
       deactivate();
     }
-  }, [chainId]);
+  }, [chainId, account, deactivate]);
 
   return (
     <div className="App">
