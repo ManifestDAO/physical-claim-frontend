@@ -36,8 +36,9 @@ function Inventory() {
   }, [activate, dispatch]);
 
   useEffect(() => {
+    if (chainId !== 4) return;
     dispatch(getAccountInfo({ account: account }));
-  }, [account, dispatch]);
+  }, [account, dispatch, chainId]);
 
   useEffect(() => {
     if (chainId !== chainIds.ETH_RINKEBY_TESTNET && account !== undefined) {
@@ -52,7 +53,7 @@ function Inventory() {
         {account === undefined ? <ConnectButton /> : <UserInfo />}
       </nav>
       {shopUp ? <ShopUp setShopUp={setShopUp} /> : ""}
-      {account === undefined ? (
+      {account === undefined || chainId !== 4 ? (
         <p>You are not connected</p>
       ) : (
         <NFTCard shopUp={shopUp} setShopUp={setShopUp} />
