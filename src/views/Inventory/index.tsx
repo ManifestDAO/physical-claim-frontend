@@ -11,6 +11,8 @@ import {
   resetWalletConnectConnector,
   WalletConnect,
 } from "../../helpers/connectors";
+import ConnectButton from "../../components/ConnectButton";
+import UserInfo from "../../components/UserInfo";
 
 function Inventory() {
   const { account, chainId, activate, deactivate } = useWeb3React();
@@ -46,6 +48,9 @@ function Inventory() {
 
   return (
     <div className="Inventory">
+      <nav className="inventory-nav">
+        {account === undefined ? <ConnectButton /> : <UserInfo />}
+      </nav>
       {shopUp ? <ShopUp setShopUp={setShopUp} /> : ""}
       <NFTCard shopUp={shopUp} setShopUp={setShopUp} />
     </div>
