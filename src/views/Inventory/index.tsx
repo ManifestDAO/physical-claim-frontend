@@ -52,7 +52,11 @@ function Inventory() {
         {account === undefined ? <ConnectButton /> : <UserInfo />}
       </nav>
       {shopUp ? <ShopUp setShopUp={setShopUp} /> : ""}
-      <NFTCard shopUp={shopUp} setShopUp={setShopUp} />
+      {account === undefined ? (
+        <p>You are not connected</p>
+      ) : (
+        <NFTCard shopUp={shopUp} setShopUp={setShopUp} />
+      )}
     </div>
   );
 }
