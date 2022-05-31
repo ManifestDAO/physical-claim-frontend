@@ -31,3 +31,68 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+@font-face {
+  font-family: "Neue Haas";
+  src: url("./fonts/NeueHaas/NeueHaasDisplayBlack.ttf");
+  src: url("./fonts/NeueHaas/NeueHaasDisplayBlack.ttf") format("truetype");
+  font-weight: bolder;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Neue Haas";
+  src: url("./fonts/NeueHaas/NeueHaasDisplayBlackItalic.ttf");
+  src: url("./fonts/NeueHaas/NeueHaasDisplayBlackItalic.ttf") format("truetype");
+  font-weight: bolder;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Neue Haas";
+  src: url("./fonts/NeueHaas/NeueHaasDisplayBold.ttf");
+  src: url("./fonts/NeueHaas/NeueHaasDisplayBold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Neue Haas";
+  src: url("./fonts/NeueHaas/NeueHaasDisplayBoldItalic.ttf");
+  src: url("./fonts/NeueHaas/NeueHaasDisplayBoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Neue Haas";
+  src: url("./fonts/NeueHaas/NeueHaasDisplayLight.ttf");
+  src: url("./fonts/NeueHaas/NeueHaasDisplayLight.ttf") format("truetype");
+  font-weight: lighter;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Neue Haas";
+  src: url("./fonts/NeueHaas/NeueHaasDisplayLightItalic.ttf");
+  src: url("./fonts/NeueHaas/NeueHaasDisplayLightItalic.ttf") format("truetype");
+  font-weight: lighter;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Neue Haas";
+  src: url("./fonts/NeueHaas/NeueHaasDisplayMediu.ttf");
+  src: url("./fonts/NeueHaas/NeueHaasDisplayMediu.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Neue Haas";
+  src: url("./fonts/NeueHaas/NeueHaasDisplayMediumItalic.ttf");
+  src: url("./fonts/NeueHaas/NeueHaasDisplayMediumItalic.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
