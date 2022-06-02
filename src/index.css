@@ -96,3 +96,7 @@ code {
   font-weight: normal;
   font-style: italic;
 }
+
+:root {
+  --inventory-blue: #7d7ed5;
+}

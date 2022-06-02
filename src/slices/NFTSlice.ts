@@ -12,15 +12,12 @@ interface NFTThunk {
 export const getNFTInfo: any = createAsyncThunk(
   "nfts/getNFTInfo",
   async ({ address, chainId, library }: NFTThunk) => {
+    console.log(address);
     try {
       const nftList = await fetchNFTS(address, chainId);
       const balances = await getNFTBalances(address, library, chainId);
 
-      const kliBal = balances.kliBal;
-
-      const genBal = balances.genBal;
-
-      return { nftList, chainId, kliBal, genBal };
+      return { nftList, chainId, balances };
     } catch (err) {
       console.log(err);
     }
@@ -67,8 +64,8 @@ const NFTSlice = createSlice({
     },
     [getNFTInfo.fulfilled]: (state, { payload }) => {
       state.status = "success";
-      state.balances.kliBal = payload.kliBal;
-      state.balances.genBal = payload.genBal;
+      state.balances.kliBal = payload.balances.kliBal;
+      state.balances.genBal = payload.balances.genBal;
       for (let i = 0; i < payload.nftList.ownedNfts.length; i++) {
         if (
           payload.nftList.ownedNfts[i].contract.address ===

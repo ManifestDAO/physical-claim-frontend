@@ -31,6 +31,10 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
   const status = useSelector((state: RootState) => state.nfts.status);
 
   useEffect(() => {
+    console.log(nfts);
+  }, [nfts]);
+
+  useEffect(() => {
     if (klimaSelected === undefined) return;
     try {
       dispatch(
@@ -69,7 +73,7 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
   }, [genesisSelected, dispatch, nfts.genesis]);
 
   useEffect(() => {
-    if (address === undefined) return;
+    if (address === undefined || chainId !== 4) return;
     try {
       dispatch(clear({ klima: [], genesis: [] }));
       dispatch(

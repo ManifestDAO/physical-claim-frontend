@@ -1,14 +1,11 @@
 .connect-btn {
   display: flex;
-  align-items: center;
-  justify-content: center;
   max-height: fit-content;
-  margin-left: auto;
-  margin-right: auto;
   height: max-content;
-  margin-top: 1em;
+  margin-left: auto;
+  margin-right: 5%;
   width: 100px;
-  max-width: 95vw;
+  z-index: 2;
 }
 
 .metamask-btn {
@@ -26,6 +23,7 @@
   transition: 0.2s;
   background-color: orange;
   box-shadow: 0 0 50px rgba(255, 166, 0, 0.637);
+  z-index: 2;
 }
 
 .walletconnect-btn {
@@ -43,6 +41,7 @@
   transition: 0.2s;
   background-color: lightblue;
   box-shadow: 0 0 50px rgba(173, 216, 230, 0.637);
+  z-index: 2;
 }
 
 .walleticon {
