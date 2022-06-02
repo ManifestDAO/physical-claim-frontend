@@ -27,7 +27,10 @@ export const getNFTInfo: any = createAsyncThunk(
 interface NFTState {
   status: string;
   nfts: any;
-  balances: any;
+  balances: {
+    kliBal: any;
+    genBal: any;
+  };
 }
 
 const initialState: NFTState = {
@@ -63,21 +66,25 @@ const NFTSlice = createSlice({
       state.status = "loading";
     },
     [getNFTInfo.fulfilled]: (state, { payload }) => {
-      state.status = "success";
-      state.balances.kliBal = payload.balances.kliBal;
-      state.balances.genBal = payload.balances.genBal;
-      for (let i = 0; i < payload.nftList.ownedNfts.length; i++) {
-        if (
-          payload.nftList.ownedNfts[i].contract.address ===
-          ADDRESSES[payload.chainId].KLIMATEES
-        ) {
-          state.nfts.klima.push(payload.nftList.ownedNfts[i]);
-        } else if (
-          payload.nftList.ownedNfts[i].contract.address ===
-          ADDRESSES[payload.chainId].GENESIS_HOODIES
-        ) {
-          state.nfts.genesis.push(payload.nftList.ownedNfts[i]);
+      try {
+        state.status = "success";
+        state.balances.kliBal = payload.balances.kliBal;
+        state.balances.genBal = payload.balances.genBal;
+        for (let i = 0; i < payload.nftList.ownedNfts.length; i++) {
+          if (
+            payload.nftList.ownedNfts[i].contract.address ===
+            ADDRESSES[payload.chainId].KLIMATEES
+          ) {
+            state.nfts.klima.push(payload.nftList.ownedNfts[i]);
+          } else if (
+            payload.nftList.ownedNfts[i].contract.address ===
+            ADDRESSES[payload.chainId].GENESIS_HOODIES
+          ) {
+            state.nfts.genesis.push(payload.nftList.ownedNfts[i]);
+          }
         }
+      } catch (err) {
+        console.log(err);
       }
     },
     [getNFTInfo.rejected]: (state, action) => {
