@@ -26,6 +26,7 @@ export const getNFTInfo: any = createAsyncThunk(
 
 interface NFTState {
   status: string;
+  newNfts: any;
   nfts: any;
   balances: {
     kliBal: any;
@@ -35,6 +36,7 @@ interface NFTState {
 
 const initialState: NFTState = {
   status: "",
+  newNfts: [],
   nfts: {
     klima: [],
     genesis: [],
@@ -70,6 +72,7 @@ const NFTSlice = createSlice({
         state.status = "success";
         state.balances.kliBal = payload.balances.kliBal;
         state.balances.genBal = payload.balances.genBal;
+        state.newNfts = payload.nftList.ownedNfts;
         for (let i = 0; i < payload.nftList.ownedNfts.length; i++) {
           if (
             payload.nftList.ownedNfts[i].contract.address ===
