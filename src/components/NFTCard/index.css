@@ -1,11 +1,11 @@
 .nft-screen {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin-left: auto;
   margin-right: auto;
+  width: 72vw;
   left: 0;
   right: 0;
 }
@@ -13,13 +13,11 @@
 .nft-screen-bg {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  width: 100%;
   margin-left: auto;
   margin-right: auto;
-  top: 15%;
+  width: 72vw;
   left: 0;
   right: 0;
   z-index: -1;
@@ -29,8 +27,9 @@
 .nft-chunk {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  width: 100%;
   z-index: 999;
 }
 
@@ -41,41 +40,50 @@
   justify-content: center;
   align-items: center;
   border-radius: 1.5em;
+  border: solid 2px;
+  border-color: var(--inventory-blue);
   max-width: 95vw;
   width: 300px;
-  height: 500px;
-  background-color: rgba(136, 136, 136, 0.301);
+  height: 450px;
+  background: none;
   transition: 0.2s;
+  margin-bottom: 2em;
   z-index: 1;
+  box-shadow: 5px 5px 4px var(--inventory-blue);
 }
 
 .nft-card:hover {
   cursor: pointer;
-  background-color: rgba(136, 136, 136, 0.781);
+  background-color: rgba(136, 136, 136, 0.192);
 }
 
-.nft-card.active {
+/* .nft-card.active {
   height: fit-content;
   border: solid;
   border-color: purple;
   background-color: rgba(128, 0, 128, 0.562);
   box-shadow: 0 0 50px rgba(255, 0, 234, 0.274);
   transition: 0.2s;
-}
+} */
 
 .nft-image {
   max-width: 95%;
   margin: 1em;
+  margin-bottom: 0;
 }
 
 .nft-title {
   margin-bottom: 0;
+  font-family: "Neue Haas";
+  font-size: medium;
   margin-top: 1em;
 }
 
 .nft-dropdown {
   display: flex;
   flex-direction: column;
+  background: none;
+  color: white;
 }
 
 .claiminfo {
@@ -88,19 +96,20 @@
 
 label {
   text-align: center;
+  color: white;
 }
 
 .nft-size-options {
-  background-color: rgb(71, 42, 70);
+  border: solid 2px;
+  border-color: var(--inventory-blue);
+  background: none;
   color: white;
-  border: none;
-  border-radius: 1.5em;
-  margin-top: 1em;
   padding: 0.5em;
 }
 
 option {
-  border-radius: 1.5em;
+  color: rgb(255, 255, 255);
+  background-color: #090a1e;
 }
 
 .title {
@@ -111,6 +120,25 @@ option {
 }
 
 .nft-quantity {
+  font-size: smaller;
   margin: 0;
+  margin-bottom: 0.5em;
   padding: 0;
+}
+
+.manifest-btn {
+  margin-top: 0.5em;
+  background-color: var(--inventory-blue);
+  font-weight: bold;
+  color: white;
+  padding: 0.25em;
+  width: 8rem;
+  transition: 0.2s;
+  border: none;
+}
+
+.manifest-btn:hover {
+  cursor: pointer;
+  box-shadow: 0 0 5px var(--inventory-blue);
+  transition: 0.2s;
 }
