@@ -31,6 +31,10 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
   const status = useSelector((state: RootState) => state.nfts.status);
 
   useEffect(() => {
+    console.log(nfts);
+  }, [nfts]);
+
+  useEffect(() => {
     if (klimaSelected === undefined) return;
     try {
       dispatch(
@@ -69,7 +73,7 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
   }, [genesisSelected, dispatch, nfts.genesis]);
 
   useEffect(() => {
-    if (address === undefined) return;
+    if (address === undefined || chainId !== 4) return;
     try {
       dispatch(clear({ klima: [], genesis: [] }));
       dispatch(
@@ -93,7 +97,6 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
   return (
     <div className={shopUp ? "nft-screen-bg" : "nft-screen"}>
       <div className="nft-chunk">
-        <h1 className="title">Klima T-Shirts</h1>
         {status !== "success" ? (
           <img src={loading} alt="LOADING NFTS" className="loading" />
         ) : (
@@ -108,14 +111,16 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
               }}
               key={index}
             >
-              <h1 className="nft-title">{KlimaShirtNames[item.id.tokenId]}</h1>
+              <h1 className="nft-title">
+                {KlimaShirtNames[parseInt(item.id.tokenId)]}
+              </h1>
               <img
-                src={KlimaShirtImages[item.id.tokenId]}
+                src={KlimaShirtImages[parseInt(item.id.tokenId)]}
                 alt="nft"
                 className="nft-image"
               />
               <h3 className="nft-quantity">
-                x{balances.kliBal[item.id.tokenId]}
+                x{balances.kliBal[parseInt(item.id.tokenId)]}
               </h3>
               {klimaSelected === index ? (
                 <div className="claiminfo">
@@ -124,7 +129,6 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
                     htmlFor="tshirt-size"
                     id="tshirt-size"
                   >
-                    Select your size:
                     <select
                       className="nft-size-options"
                       name="tshirt-size"
@@ -138,67 +142,10 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
                       <option value="2xl">XXL - Double Extra Large</option>
                     </select>
                   </label>
-                  <button className="btn" onClick={() => setShopUp(true)}>
-                    MANIFEST
-                  </button>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-          ))
-        )}
-      </div>
-
-      <div className="nft-chunk">
-        <h1 className="title">Genesis Hoodies</h1>
-        {status !== "success" ? (
-          <img src={loading} alt="LOADING NFTS" className="loading" />
-        ) : (
-          nfts.genesis.map((item: any, index: number) => (
-            <div
-              className={
-                genesisSelected === index ? "nft-card active" : "nft-card"
-              }
-              onClick={() => {
-                setGenesisSelected(index);
-                setKlimaSelected(undefined);
-              }}
-              key={index}
-            >
-              <h1 className="nft-title">
-                {GenesisShirtNames[item.id.tokenId]}
-              </h1>
-              <img
-                src={GenesisShirtImages[item.id.tokenId]}
-                alt="nft"
-                className="nft-image"
-              />
-              <h3 className="nft-quantity">
-                x{balances.genBal[item.id.tokenId]}
-              </h3>
-              {genesisSelected === index ? (
-                <div className="claiminfo">
-                  <label
-                    className="nft-dropdown"
-                    htmlFor="tshirt-size"
-                    id="tshirt-size"
+                  <button
+                    className="manifest-btn"
+                    onClick={() => setShopUp(true)}
                   >
-                    Select your size:
-                    <select
-                      className="nft-size-options"
-                      name="tshirt-size"
-                      onChange={(event) => handleChange(event)}
-                    >
-                      <option value="xs">XS - Extra Small</option>
-                      <option value="s">S - Small</option>
-                      <option value="medium">M - Medium</option>
-                      <option value="l">L - Large</option>
-                      <option value="xl">XL - Extra Large</option>
-                      <option value="xxl">XXL - Double Extra Large</option>
-                    </select>
-                  </label>
-                  <button className="btn" onClick={() => setShopUp(true)}>
                     MANIFEST
                   </button>
                 </div>
@@ -209,6 +156,55 @@ const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
           ))
         )}
       </div>
+      {nfts.genesis.map((item: any, index: number) => (
+        <div
+          className={genesisSelected === index ? "nft-card active" : "nft-card"}
+          onClick={() => {
+            setGenesisSelected(index);
+            setKlimaSelected(undefined);
+          }}
+          key={index}
+        >
+          <h1 className="nft-title">
+            {GenesisShirtNames[parseInt(item.id.tokenId)]}
+          </h1>
+          <img
+            src={GenesisShirtImages[parseInt(item.id.tokenId)]}
+            alt="nft"
+            className="nft-image"
+          />
+          <h3 className="nft-quantity">
+            x{balances.genBal[parseInt(item.id.tokenId)]}
+          </h3>
+          {genesisSelected === index ? (
+            <div className="claiminfo">
+              <label
+                className="nft-dropdown"
+                htmlFor="tshirt-size"
+                id="tshirt-size"
+              >
+                <select
+                  className="nft-size-options"
+                  name="tshirt-size"
+                  onChange={(event) => handleChange(event)}
+                >
+                  <option value="xs">XS - Extra Small</option>
+                  <option value="s">S - Small</option>
+                  <option value="medium">M - Medium</option>
+                  <option value="l">L - Large</option>
+                  <option value="xl">XL - Extra Large</option>
+                  <option value="xxl">XXL - Double Extra Large</option>
+                </select>
+              </label>
+              <button className="manifest-btn" onClick={() => setShopUp(true)}>
+                MANIFEST
+              </button>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+      ))}
     </div>
   );
 };

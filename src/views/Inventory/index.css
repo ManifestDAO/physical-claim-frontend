@@ -1,11 +1,33 @@
-.Inventory {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+.inventory {
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  background-image: url(../../assets/background.png);
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .inventory-nav {
-  margin-left: auto;
-  margin-right: 15%;
+  margin-top: 10px;
+  width: 100%;
 }
+
+.inventory-title {
+  font-family: "Neue Haas";
+  font-weight: lighter;
+  margin-left: 15%;
+  margin-right: auto;
+  margin-top: 0;
+  font-size: 3rem;
+}
+
+.inventory-title::after {
+  content: "";
+  display: block;
+  position: absolute;
+  margin-top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--inventory-blue);
+  min-width: 72vw;
+  height: 1px;

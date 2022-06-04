@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  max-height: 50px;
+  max-height: 7px;
   margin: 0.5em;
   border: solid;
   border-color: purple;
@@ -10,10 +10,9 @@
   border-style: solid;
   padding: 1em;
   border-radius: 1.5em;
-  max-width: 200px;
+  max-width: 100px;
   margin-left: auto;
-  margin-right: auto;
-  margin-top: 50px;
+  margin-right: 5%;
   transition: 0.2s;
 }
 
@@ -24,11 +23,14 @@
 }
 
 .walleticon-userinfo {
-  max-width: 40px;
+  max-width: 20px;
   margin-right: 0.5em;
 }
 
 .userinfo-address {
+  padding: 0;
+  margin: 0;
+  font-size: smaller;
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: fit-content;

@@ -15,9 +15,9 @@ const abundanceHoodieID: any = 2;
 const flowHoodieID: any = 3;
 
 export const KlimaShirtNames: any = {
-  [cooperationShirtID]: "Co-Operation",
-  [growthShirtID]: "Growth",
-  [protectionShirtID]: "Protection",
+  [cooperationShirtID]: "CO-OPERATION",
+  [growthShirtID]: "GROWTH",
+  [protectionShirtID]: "PROTECTION",
 };
 
 export const KlimaShirtImages = {
@@ -27,9 +27,9 @@ export const KlimaShirtImages = {
 };
 
 export const GenesisShirtNames: any = {
-  [creationHoodieID]: "Creation",
-  [abundanceHoodieID]: "Abundance",
-  [flowHoodieID]: "Flow",
+  [creationHoodieID]: "CREATION",
+  [abundanceHoodieID]: "ABUNDANCE",
+  [flowHoodieID]: "FLOW",
 };
 
 export const GenesisShirtImages: any = {

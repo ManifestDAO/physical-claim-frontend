@@ -1,10 +1,10 @@
 .navbar {
   display: flex;
   justify-content: flex;
-  align-items: baseline;
-  height: 50px;
+  align-items: center;
+  height: 75px;
   width: 100%;
-  z-index: 2;
+  z-index: 1;
 }
 
 .navbar > li {
@@ -39,7 +39,7 @@
 
 .nav-logo {
   margin-left: 3em;
-  margin-top: 2em;
+  transform: translateY(-3px);
   max-height: 1.75rem;
   transition: 0.2s;
 }
