@@ -306,6 +306,7 @@ const NFTCard: React.FC<NFTCardProps> = function ({
               </div>
             ))}
         {newNfts === [] ? emptyArray : emptyArray.slice(newNfts.length)}
+      </div>
     </div>
   );
 };
