@@ -23,8 +23,9 @@ export default function UserInfo() {
     deactivate();
   };
 
-  return (
+  return (<div>{/*
     <div className="user-info" onClick={() => logOut()}>
+      
       {walletprovider === "metamask" ? (
         <img src={MMIcon} alt="metamasklogo" className="walleticon-userinfo" />
       ) : (
@@ -35,6 +36,7 @@ export default function UserInfo() {
         />
       )}
       <h2 className="userinfo-address">{address}</h2>
-    </div>
+     
+    </div>  */}</div>
   );
 }

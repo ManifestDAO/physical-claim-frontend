@@ -5,7 +5,7 @@ import { ADDRESSES } from "../constants/addresses";
 
 export async function getNFTBalances(address, library, chainId) {
   const provider = await library;
-  const signer = await provider.getSigner();
+  const signer = await provider;
   const klimaContract = new ethers.Contract(
     ADDRESSES[chainId].KLIMATEES,
     KlimaABI[chainId],

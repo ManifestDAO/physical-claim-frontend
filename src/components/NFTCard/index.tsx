@@ -13,14 +13,33 @@ import { RootState } from "../../store";
 import { useWeb3React } from "@web3-react/core";
 import { update } from "../../slices/OrderSlice";
 
+import {useNetwork} from 'wagmi'
+import {useProvider} from 'wagmi'
+import {useSigner} from 'wagmi'
+
 interface NFTCardProps {
   shopUp: boolean;
   setShopUp: any;
 }
 
 const NFTCard: React.FC<NFTCardProps> = function ({ shopUp, setShopUp }) {
-  const { chainId, library } = useWeb3React();
-  const dispatch = useDispatch();
+ //const { library } = useWeb3React();
+ const { data: signer } = useSigner()
+ const {
+  activeChain,
+  chains,
+  error,
+  isLoading,
+  pendingChainId,
+  switchNetwork,
+} = useNetwork()
+const chainId = activeChain?.id
+console.log("hi apollo: "+chainId)
+const library = signer
+console.log("hi apollo: " +signer)
+
+
+  const dispatch = useDispatch()
 
   const [klimaSelected, setKlimaSelected] = useState<any>();
   const [genesisSelected, setGenesisSelected] = useState<any>();

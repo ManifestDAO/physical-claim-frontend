@@ -90,8 +90,9 @@ const OrderForm: React.FC<OrderFormProps> = ({
   async function signMessage(address: string, library: any) {
     try {
       const provider = await library;
-      const signer = await provider.getSigner();
-      const signature = await signer.signMessage("Verify Wallet");
+      const signer = await provider;
+      const signature = await signer?.signMessage("Verify Wallet");
+  
 
       return {
         address,
@@ -106,7 +107,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
   async function approve() {
     try {
       const provider = await library;
-      const signer = await provider.getSigner();
+      const signer = await provider;
       const contract = new ethers.Contract(
         order.nft_address,
         KlimaABI[chainId as number],
@@ -136,7 +137,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
   async function burn(library: any, chainId: any) {
     try {
       const provider = await library;
-      const signer = await provider.getSigner();
+      const signer = await provider;
       const contract = new ethers.Contract(
         ADDRESSES[chainId].BURN_CONTRACT,
         BurnABI[chainId],
@@ -178,8 +179,12 @@ const OrderForm: React.FC<OrderFormProps> = ({
     }
     setError(false);
     setOrderState("verifying");
+    console.log("apoollo this is address: "+address)
+    console.log("apolloo this is library: "+library)
 
     const signature = await signMessage(address, library);
+
+    /*
 
     setOrderState("approving");
     const approvedReceipt = await approve();
@@ -252,6 +257,8 @@ const OrderForm: React.FC<OrderFormProps> = ({
       setResponse(`Order ID: ${response.request.response.body.id}`);
       setLoading(false);
     });
+
+    */
   };
 
   let formButton;
