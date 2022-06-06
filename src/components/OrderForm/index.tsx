@@ -17,6 +17,9 @@ import { ADDRESSES } from "../../constants/addresses";
 import { BurnABI } from "../../constants/ABIs/BurnABI";
 import { KlimaABI } from "../../constants/ABIs/KlimaABI";
 
+import {useSigner} from 'wagmi'
+import {useNetwork} from 'wagmi'
+
 interface OrderFormProps {
   setLoading: any;
   setApiReturn: any;
@@ -28,7 +31,17 @@ const OrderForm: React.FC<OrderFormProps> = ({
   setApiReturn,
   setResponse,
 }) => {
-  const { library, chainId } = useWeb3React();
+  //const { library, chainId } = useWeb3React();
+  const { data: signer }:any = useSigner()
+  
+  const {
+    activeChain
+  } = useNetwork()
+  const chainId = activeChain?.id
+  console.log("hi apollo: "+chainId)
+  const library = signer
+  console.log("hi apollo: " +signer)
+
   const [error, setError] = useState(false);
   const [orderState, setOrderState] = useState("");
   const order = useSelector((state: RootState) => state.order);
@@ -104,7 +117,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
     }
   }
 
-  async function approve() {
+   async function approve() {
     try {
       const provider = await library;
       const signer = await provider;
@@ -132,8 +145,8 @@ const OrderForm: React.FC<OrderFormProps> = ({
     } catch (err) {
       console.log(err);
     }
-  }
-
+  } 
+ 
   async function burn(library: any, chainId: any) {
     try {
       const provider = await library;
@@ -184,7 +197,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
 
     const signature = await signMessage(address, library);
 
-    /*
+    
 
     setOrderState("approving");
     const approvedReceipt = await approve();
@@ -258,7 +271,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
       setLoading(false);
     });
 
-    */
+    
   };
 
   let formButton;
