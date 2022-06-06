@@ -20,9 +20,14 @@ import { KlimaABI } from "../../constants/ABIs/KlimaABI";
 interface OrderFormProps {
   setLoading: any;
   setApiReturn: any;
+  setResponse: any;
 }
 
-const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
+const OrderForm: React.FC<OrderFormProps> = ({
+  setLoading,
+  setApiReturn,
+  setResponse,
+}) => {
   const { library, chainId } = useWeb3React();
   const [error, setError] = useState(false);
   const [orderState, setOrderState] = useState("");
@@ -183,7 +188,8 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
     setOrderState("burning");
     const burned = await burn(library, chainId);
     if (burned === undefined) {
-      setApiReturn("NFT not burned");
+      setApiReturn("failure");
+      setResponse("NFT not burned");
       return;
     }
 
@@ -220,28 +226,30 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
     setLoading(true);
 
     request(options, function (error: any, response: any) {
+      if (!response) {
+        setApiReturn("failure");
+        setResponse("ERROR: No API Response");
+      }
       if (
         response.body ===
         '{"message":"Something went wrong. error(Error: Product not found)"}'
       ) {
-        setApiReturn(JSON.parse(response.body).message);
+        setApiReturn("failure");
+        setResponse(response.body);
       }
       console.log(JSON.parse(response.body).message);
       if (error) {
-        setApiReturn(`Something Went Wrong! ${error}`);
+        setApiReturn("failure");
+        setResponse(`ERROR: ${error}`);
         setLoading(false);
         return;
       }
       if (!response.request.response.body.id) {
-        setApiReturn(
-          `Error: ${JSON.parse(response.request.response.body).message}`
-        );
+        setApiReturn("failure");
+        setResponse("Something went wrong!");
       }
-      setApiReturn(
-        `Success! Order ID: ${JSON.parse(
-          response.request.response.body
-        ).id.toString()}`
-      );
+      setApiReturn("success");
+      setResponse(`Order ID: ${response.request.response.body.id}`);
       setLoading(false);
     });
   };
@@ -250,7 +258,9 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
 
   switch (orderState) {
     case "":
-      formButton = <input className="btn" type="submit" value="MANIFEST" />;
+      formButton = (
+        <input className="order-btn" type="submit" value="MANIFEST" />
+      );
       break;
     case "verifying":
       formButton = (
@@ -274,139 +284,109 @@ const OrderForm: React.FC<OrderFormProps> = ({ setLoading, setApiReturn }) => {
     <form className="order-form" onSubmit={(event) => submit(event)}>
       {order.product === "klima" ? (
         <div className="top-chunk">
-          <h2>Ordering: Klima {KlimaShirtNames[order.nft_tokenid]} T-Shirt</h2>
-          <h3>Size: {sizeIds[order.size]}</h3>
           <img
-            src={KlimaShirtImages[order.nft_tokenid as any]}
+            src={KlimaShirtImages[parseInt(order.nft_tokenid) as number]}
             className="order-image"
             alt="NFT"
           />
+          <div className="order-description">
+            <p className="order-description-title">
+              {KlimaShirtNames[parseInt(order.nft_tokenid)]} T-Shirt
+            </p>
+            <p className="order-description-size">
+              Size: {sizeIds[order.size]}
+            </p>
+          </div>
         </div>
       ) : (
         <div className="top-chunk">
-          <h2>
-            Ordering: Genesis {GenesisShirtNames[order.nft_tokenid]} Hoodie
-          </h2>
-          <h3>Size: {sizeIds[order.size]}</h3>
           <img
-            src={GenesisShirtImages[order.nft_tokenid as any]}
+            src={GenesisShirtImages[parseInt(order.nft_tokenid) as number]}
             className="order-image"
             alt="NFT"
           />
+          <div className="order-description">
+            <p className="order-description-title">
+              {GenesisShirtNames[parseInt(order.nft_tokenid)]} Hoodie
+            </p>
+            <p className="order-description-size">
+              Size: {sizeIds[order.size]}
+            </p>
+          </div>
         </div>
       )}
 
       <div className="form-chunk">
-        <h3>Personal Info</h3>
-        <div className="order-input name">
-          <label htmlFor="first_name">First*</label>
-          {error ? <p className="error-text">Required Field</p> : ""}
-          <input
-            className="order-input-box"
-            id="first_name"
-            type="text"
-            onChange={(event) => changeHandler(event)}
-          />
-        </div>
+        <input
+          placeholder="Name"
+          className="order-input-box"
+          id="first_name"
+          type="text"
+          onChange={(event) => changeHandler(event)}
+        />
+        <input
+          placeholder="Surname"
+          className="order-input-box"
+          id="last_name"
+          type="text"
+          onChange={(event) => changeHandler(event)}
+        />
+        <input
+          placeholder="Email"
+          className="order-input-box"
+          id="email"
+          type="text"
+          onChange={(event) => changeHandler(event)}
+        />
+        <input
+          placeholder="Address 1"
+          className="order-input-box"
+          id="address1"
+          type="text"
+          onChange={(event) => changeHandler(event)}
+        />
+        <input
+          placeholder="Address 2"
+          className="order-input-box"
+          id="address2"
+          type="text"
+          onChange={(event) => changeHandler(event)}
+        />
 
-        <div className="order-input name">
-          <label htmlFor="last_name">Last*</label>
-          {error ? <p className="error-text">Required Field</p> : ""}
-          <input
-            className="order-input-box"
-            id="last_name"
-            type="text"
-            onChange={(event) => changeHandler(event)}
-          />
-        </div>
+        <CountryDropdown
+          id="country"
+          value={order.country_code}
+          valueType="short"
+          priorityOptions={["CA", "US", "GB", "AU"]}
+          onChange={(value: string, e: ChangeEvent<Element>) =>
+            handleCountryChange(value, e)
+          }
+        />
 
-        <div className="order-input">
-          <label htmlFor="email">Email</label>
-          <input
-            className="order-input-box"
-            id="email"
-            type="text"
-            onChange={(event) => changeHandler(event)}
-          />
-        </div>
-      </div>
+        <RegionDropdown
+          id="region"
+          country={order.country_code}
+          countryValueType="short"
+          value={order.province_code}
+          valueType="short"
+          onChange={handleRegionChange}
+        />
 
-      <div className="form-chunk">
-        <h3>Delivery Info</h3>
-        <div className="order-input">
-          <label htmlFor="address1">Address*</label>
-          {error ? <p className="error-text">Required Field</p> : ""}
-          <input
-            className="order-input-box"
-            id="address1"
-            type="text"
-            onChange={(event) => changeHandler(event)}
-          />
-        </div>
+        <input
+          placeholder="City"
+          className="order-input-box"
+          id="city"
+          type="text"
+          onChange={(event) => changeHandler(event)}
+        />
 
-        <div className="order-input">
-          <label htmlFor="address1">Address Line 2</label>
-          {error ? <p className="error-text">Required Field</p> : ""}
-          <input
-            className="order-input-box"
-            id="address2"
-            type="text"
-            onChange={(event) => changeHandler(event)}
-          />
-        </div>
-
-        <div className="order-input">
-          <label htmlFor="city">City/Town*</label>
-          {error ? <p className="error-text">Required Field</p> : ""}
-          <input
-            className="order-input-box"
-            id="city"
-            type="text"
-            onChange={(event) => changeHandler(event)}
-          />
-        </div>
-
-        <div className="order-input">
-          <label htmlFor="zip">ZIP/Postal*</label>
-          {error ? <p className="error-text">Required Field</p> : ""}
-          <input
-            className="order-input-box"
-            id="zip"
-            type="text"
-            onChange={(event) => changeHandler(event)}
-          />
-        </div>
-
-        <div className="order-input">
-          <label htmlFor="country-dropdown">Country*</label>
-          {error ? <p className="error-text">Required Field</p> : ""}
-          <CountryDropdown
-            id="country"
-            value={order.country_code}
-            valueType="short"
-            priorityOptions={["CA", "US", "GB", "AU"]}
-            onChange={(value: string, e: ChangeEvent<Element>) =>
-              handleCountryChange(value, e)
-            }
-          />
-        </div>
-
-        {order.country !== "" ? (
-          <div className="order-input">
-            <label htmlFor="region-dropdown">Region*</label>
-            {error ? <p className="error-text">Required Field</p> : ""}
-            <RegionDropdown
-              id="region"
-              country={order.country_code}
-              countryValueType="short"
-              value={order.province_code}
-              valueType="short"
-              onChange={handleRegionChange}
-            />
-          </div>
-        ) : (
-          ""
-        )}
+        <input
+          placeholder="ZIP/Postal"
+          className="order-input-box"
+          id="zip"
+          type="text"
+          onChange={(event) => changeHandler(event)}
+        />
       </div>
       <div className="form-chunk">{formButton}</div>
     </form>

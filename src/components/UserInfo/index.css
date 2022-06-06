@@ -4,20 +4,18 @@
   align-items: center;
   max-height: 7px;
   margin: 0.5em;
-  border: solid;
-  border-color: purple;
-  box-shadow: 0 0 100px rgba(255, 0, 234, 0.212);
-  border-style: solid;
+  border: none;
   padding: 1em;
   border-radius: 1.5em;
   max-width: 100px;
   margin-left: auto;
   margin-right: 5%;
   transition: 0.2s;
+  background-color: var(--inventory-blue);
 }
 
 .user-info:hover {
-  background-color: rgba(128, 0, 128, 0.521);
+  box-shadow: 0 0 10px var(--inventory-blue);
   cursor: pointer;
   transition: 0.2s;
 }

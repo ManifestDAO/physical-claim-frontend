@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import OrderForm from "../OrderForm";
-import MNFSTLoader from "../../assets/logos/mnfstloader.gif";
+import success from "../../assets/order/success-icon.png";
+import failure from "../../assets/order/failure-icon.png";
 import "./index.css";
 
 interface ShopUpProps {
@@ -9,20 +10,43 @@ interface ShopUpProps {
 
 const ShopUp: React.FC<ShopUpProps> = function ({ setShopUp }) {
   const [loading, setLoading] = useState(false);
-  const [apiReturn, setApiReturn] = useState();
+  const [response, setResponse] = useState(``);
+  const [apiReturn, setApiReturn] = useState("");
 
   return (
     <div className="shopup">
-      <div className="shopup-inner">
+      <div
+        className={
+          apiReturn === ""
+            ? "shopup-inner"
+            : apiReturn === "failure"
+            ? "shopup-inner-failure"
+            : "shopup-inner-success"
+        }
+      >
         <p className="closebtn" onClick={() => setShopUp(false)}>
-          CLOSE
+          X
         </p>
-        {loading ? (
-          <img src={MNFSTLoader} alt="Loading..." />
-        ) : apiReturn ? (
-          <h1 className="order-finished">{apiReturn}</h1>
+        {apiReturn === "" ? (
+          <OrderForm
+            setLoading={setLoading}
+            setApiReturn={setApiReturn}
+            setResponse={setResponse}
+          />
+        ) : apiReturn === "success" ? (
+          <div className="order-success">
+            <p className="order-success-title">SUCCESS</p>
+            <img src={success} alt="success" />
+            <p className="order-success-info">Your order has been received!</p>
+            <p className="order-id">{response}</p>
+          </div>
         ) : (
-          <OrderForm setLoading={setLoading} setApiReturn={setApiReturn} />
+          <div className="order-failure">
+            <p className="order-failure-title">ERROR</p>
+            <img src={failure} alt="failure" />
+            <p className="order-failure-info">An error occured!</p>
+            <p className="order-error">{response}</p>
+          </div>
         )}
       </div>
     </div>

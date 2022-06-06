@@ -14,12 +14,12 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgb(92, 0, 116); /* color of the tracking area */
+  background: rgba(90, 133, 168, 0.575); /* color of the tracking area */
   border-radius: 1.5em;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(204, 0, 255); /* color of the scroll thumb */
+  background-color: var(--inventory-blue); /* color of the scroll thumb */
   border-radius: 20px; /* roundness of the scroll thumb */
 }
 

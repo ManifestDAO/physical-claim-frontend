@@ -49,10 +49,12 @@ function Inventory() {
 
   return (
     <div className="inventory">
-      <nav className="inventory-nav">
+      <nav className={shopUp ? "inventory-nav-bg" : "inventory-nav"}>
         {account === undefined ? <ConnectButton /> : <UserInfo />}
       </nav>
-      <h1 className="inventory-title">INVENTORY</h1>
+      <h1 className={shopUp ? "inventory-title-bg" : "inventory-title"}>
+        INVENTORY
+      </h1>
       {shopUp ? <ShopUp setShopUp={setShopUp} /> : ""}
       {account === undefined || chainId !== 4 ? (
         <p>You are not connected</p>

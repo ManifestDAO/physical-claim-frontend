@@ -10,6 +10,7 @@
 .inventory-nav {
   margin-top: 10px;
   width: 100%;
+  transition: 0.2s;
 }
 
 .inventory-title {
@@ -18,6 +19,26 @@
   margin-left: 15%;
   margin-right: auto;
   margin-top: 0;
+  font-size: 3rem;
+  transition: 0.2s;
+}
+
+.inventory-nav-bg {
+  margin-top: 10px;
+  width: 100%;
+  filter: blur(5px);
+  transition: 0.2s;
+}
+
+.inventory-title-bg {
+  font-family: "Neue Haas";
+  font-weight: lighter;
+  margin-left: 15%;
+  margin-right: auto;
+  margin-top: 0;
+  font-size: 3rem;
+  filter: blur(10px);
+  transition: 0.2s;
 }
 
 .inventory-title::after {
