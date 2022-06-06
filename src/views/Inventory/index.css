@@ -49,6 +49,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: var(--inventory-blue);
-  min-width: 72vw;
+  min-width: 80vw;
   height: 1px;
 }

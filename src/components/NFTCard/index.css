@@ -1,24 +1,23 @@
 .nft-screen {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-left: auto;
   margin-right: auto;
-  width: 72vw;
   left: 0;
   right: 0;
+  width: 80vw;
   transition: 0.2s;
 }
 
 .nft-screen-bg {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-left: auto;
   margin-right: auto;
-  width: 72vw;
+  width: 80vw;
   left: 0;
   right: 0;
   z-index: -1;
@@ -27,13 +26,17 @@
   transition: 0.2s;
 }
 
-.nft-chunk {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  z-index: 999;
+@media (min-width: 1200px) {
+  .nft-chunk {
+    position: relative;
+    display: grid;
+    grid-gap: 10px;
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(auto-fill, 32%);
+    max-width: 100%;
+    /* width: 100%; */
+    z-index: 999;
+  }
 }
 
 .nft-card {
