@@ -20,6 +20,21 @@ function Inventory() {
 
   const dispatch = useDispatch();
 
+  const emptySlot: JSX.Element = (
+    <div className="nft-card">
+      <h1 className="nft-title">EMPTY SLOT</h1>
+    </div>
+  );
+
+  const emptyArray: JSX.Element[] = [
+    emptySlot,
+    emptySlot,
+    emptySlot,
+    emptySlot,
+    emptySlot,
+    emptySlot,
+  ];
+
   useEffect(() => {
     if (localStorage.getItem("Provider") === null) return;
     if (localStorage.getItem("Provider") === "metamask") {
@@ -56,10 +71,16 @@ function Inventory() {
         INVENTORY
       </h1>
       {shopUp ? <ShopUp setShopUp={setShopUp} /> : ""}
-      {account === undefined || chainId !== 4 ? (
-        <p>You are not connected</p>
+      {account !== undefined ? (
+        <NFTCard
+          shopUp={shopUp}
+          setShopUp={setShopUp}
+          emptyArray={emptyArray}
+        />
       ) : (
-        <NFTCard shopUp={shopUp} setShopUp={setShopUp} />
+        <div className="nft-screen">
+          <div className="nft-chunk">{emptyArray}</div>
+        </div>
       )}
     </div>
   );

@@ -18,9 +18,9 @@ export default function UserInfo() {
   const address = useSelector((state: RootState) => state.account.address);
 
   const logOut = () => {
-    dispatch(clear({ klima: [], genesis: [] }));
     dispatch(changeProvider(undefined));
     deactivate();
+    dispatch(clear({ klima: [], genesis: [] }));
   };
 
   return (
