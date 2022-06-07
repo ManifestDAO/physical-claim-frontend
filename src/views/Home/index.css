@@ -1,6 +1,7 @@
 body {
   font-family: sans-serif;
   background-color: #070719;
+  cursor: crosshair;
 }
 
 .parent-flex {
@@ -25,7 +26,6 @@ body {
   flex: 100% 0;
   margin: 0 auto;
   text-align: center;
-  cursor: crosshair;
   transition: all ease-in-out 1s;
 }
 .wrap .column .img img,
@@ -45,7 +45,6 @@ svg {
 }
 
 .wrap .column:hover {
-  cursor: pointer;
   flex: 50% 0;
   transition: all ease-in-out 1s;
 }
@@ -140,6 +139,9 @@ path#Ellipse\ 54,
   border-left: solid 1px #ffffff4d;
   padding-left: 5px;
   transition: all ease-in-out 1s;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 @media only screen and (max-width: 705px) {
@@ -204,6 +206,7 @@ button {
   color: white;
   border: 1px solid #fff;
   padding: 8px 16px;
+  cursor: crosshair;
 }
 
 .call-to-action-name {
