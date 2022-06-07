@@ -1,19 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import "./index.css";
 import { ReactComponent as RatioImage } from "../../components/Homepage/Images/ratio.svg";
 import { ReactComponent as FlowerImage } from "../../components/Homepage/Images/flower.svg";
 import { ReactComponent as CubeImage } from "../../components/Homepage/Images/cube.svg";
 
 const Home = () => {
+  const [isManifestShown, setIsManifestShown] = useState(false);
+  const [isCreateShown, setIsCreateShown] = useState(false);
+  const [isOwnShown, setIsOwnShown] = useState(false);
+
   return (
     <div className="wrap parent-flex">
-      <div className="column parent-flex">
+      <div
+        className="manifest column parent-flex"
+        onMouseEnter={() => setIsManifestShown(true)}
+        onMouseLeave={() => setIsManifestShown(false)}
+      >
         <div className="img">
           <RatioImage />
         </div>
         <div className="copy-container">
           <div className="copy-container-content">
-            <h3>GO MANIFEST IT</h3>
+            <h1>GO MANIFEST IT</h1>
             <p>
               Manifest is creating its own luxury fashion brand to spread
               awareness and create clothing for the nouveau crypto rich, high
@@ -22,12 +30,21 @@ const Home = () => {
             </p>
           </div>
         </div>
+        {isManifestShown && (
+          <div className="call-to-action-container manifest">
+            <span className="call-to-action-name">MAAS</span>
+            <button type="button">FORM</button>
+          </div>
+        )}
       </div>
-      <div className="column parent-flex">
+      <div
+        className="create column parent-flex"
+        onMouseEnter={() => setIsCreateShown(true)}
+        onMouseLeave={() => setIsCreateShown(false)}
+      >
         <div className="img">
           <FlowerImage />
         </div>
-
         <div className="copy-container">
           <div className="copy-container-content">
             <h3>CREATE THE FUTURE</h3>
@@ -39,12 +56,21 @@ const Home = () => {
             </p>
           </div>
         </div>
+        {isCreateShown && (
+          <div className="call-to-action-container create">
+            <span className="call-to-action-name">MANIFEST BRAND</span>
+            <button>STORE</button>
+          </div>
+        )}
       </div>
-      <div className="column parent-flex">
+      <div
+        className="own column parent-flex"
+        onMouseEnter={() => setIsOwnShown(true)}
+        onMouseLeave={() => setIsOwnShown(false)}
+      >
         <div className="img">
           <CubeImage />
         </div>
-
         <div className="copy-container">
           <div className="copy-container-content">
             <h3>OWN EVERYTHING, EVERYWHERE</h3>
@@ -57,6 +83,12 @@ const Home = () => {
             </p>
           </div>
         </div>
+        {isOwnShown && (
+          <div className="call-to-action-container own">
+            <span className="call-to-action-name">DEVELOPERS</span>
+            <button>GitHub</button>
+          </div>
+        )}
       </div>
     </div>
   );
