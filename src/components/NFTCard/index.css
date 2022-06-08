@@ -26,15 +26,20 @@
   transition: 0.2s;
 }
 
+.nft-chunk {
+  position: relative;
+  display: grid;
+  grid-gap: 10px;
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(auto-fill, 100%);
+  z-index: 999;
+  row-gap: 40px;
+}
+
 @media (min-width: 1200px) {
   .nft-chunk {
-    position: relative;
-    display: grid;
-    grid-gap: 10px;
-    grid-auto-flow: dense;
     grid-template-columns: repeat(auto-fill, 32%);
     max-width: 100%;
-    /* width: 100%; */
     z-index: 999;
   }
 }
@@ -55,7 +60,8 @@
   transition: 0.2s;
   margin-bottom: 2em;
   z-index: 1;
-  box-shadow: 5px 5px 4px var(--inventory-blue);
+  box-shadow: 4px 1px 7px var(--inventory-blue);
+  margin: 0 auto;
 }
 
 .nft-card:hover {
