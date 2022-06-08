@@ -3,6 +3,9 @@ import "./index.css";
 import { ReactComponent as RatioImage } from "../../components/Homepage/Images/ratio.svg";
 import { ReactComponent as FlowerImage } from "../../components/Homepage/Images/flower.svg";
 import { ReactComponent as CubeImage } from "../../components/Homepage/Images/cube.svg";
+import { ReactComponent as StoreButton } from "../../components/Homepage/Images/storeButton.svg";
+import { ReactComponent as FormButton } from "../../components/Homepage/Images/formButton.svg";
+import { ReactComponent as GithubButton } from "../../components/Homepage/Images/githubButton.svg";
 
 const Home = () => {
   const [isManifestShown, setIsManifestShown] = useState(false);
@@ -33,7 +36,9 @@ const Home = () => {
         {isManifestShown && (
           <div className="call-to-action-container manifest">
             <span className="call-to-action-name">MAAS</span>
-            <button type="button">FORM</button>
+            <div className="actionButton">
+              <FormButton></FormButton>
+            </div>
           </div>
         )}
       </div>
@@ -59,7 +64,9 @@ const Home = () => {
         {isCreateShown && (
           <div className="call-to-action-container create">
             <span className="call-to-action-name">MANIFEST BRAND</span>
-            <button>STORE</button>
+            <div className="actionButton">
+              <StoreButton></StoreButton>
+            </div>
           </div>
         )}
       </div>
@@ -86,7 +93,9 @@ const Home = () => {
         {isOwnShown && (
           <div className="call-to-action-container own">
             <span className="call-to-action-name">DEVELOPERS</span>
-            <button>GitHub</button>
+            <div className="actionButton">
+              <GithubButton></GithubButton>
+            </div>
           </div>
         )}
       </div>

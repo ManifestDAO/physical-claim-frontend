@@ -28,8 +28,7 @@ body {
   text-align: center;
   transition: all ease-in-out 1s;
 }
-.wrap .column .img img,
-svg {
+.wrap .column .img svg {
   margin: 0 auto;
   width: 150px;
   height: 150px;
@@ -57,7 +56,6 @@ svg {
 
 @media screen and (min-width: 3000px) {
   .wrap .column:hover {
-    background-color: red;
     flex: 20% 0;
   }
 }
@@ -153,8 +151,7 @@ path#Ellipse\ 54,
     flex: none;
     transition: all ease-in-out 1s;
   }
-  .wrap .column .img img,
-  svg {
+  .wrap .column .img svg {
     width: 100px;
     height: 100px;
     transition: all ease-in-out 1s;
@@ -191,10 +188,10 @@ path#Ellipse\ 54,
 }
 
 .call-to-action-container {
-  flex: auto;
-  display: block;
+  display: flex;
   width: 100%;
   transition: all ease-in-out 1s;
+  justify-content: center;
 }
 
 .manifest .create .own {
@@ -209,7 +206,23 @@ button {
   cursor: crosshair;
 }
 
+.actionButton svg {
+  width: 200px;
+  height: 50px;
+  cursor: crosshair;
+}
+
+#inner_glow_filter {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.actionButton :hover #inner_glow_filter {
+  visibility: visible;
+  opacity: 1;
+  transition: all ease-in-out 0.2s;
+}
+
 .call-to-action-name {
   padding: 5px;
-  margin-right: 50px;
 }
