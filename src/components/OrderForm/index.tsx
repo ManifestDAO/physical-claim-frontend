@@ -230,6 +230,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
         setApiReturn("failure");
         setResponse("ERROR: No API Response");
       }
+      console.log(JSON.parse(response.body).message);
       if (
         response.body ===
         '{"message":"Something went wrong. error(Error: Product not found)"}'
@@ -237,7 +238,6 @@ const OrderForm: React.FC<OrderFormProps> = ({
         setApiReturn("failure");
         setResponse(response.body);
       }
-      console.log(JSON.parse(response.body).message);
       if (error) {
         setApiReturn("failure");
         setResponse(`ERROR: ${error}`);
