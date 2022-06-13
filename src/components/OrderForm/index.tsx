@@ -180,6 +180,11 @@ const OrderForm: React.FC<OrderFormProps> = ({
     setOrderState("verifying");
 
     const signature = await signMessage(address, library);
+    if (signature === undefined) {
+      setApiReturn("failure");
+      setResponse("Failed to verify ownership");
+      return;
+    }
 
     setOrderState("approving");
     const approvedReceipt = await approve();
@@ -319,14 +324,26 @@ const OrderForm: React.FC<OrderFormProps> = ({
       <div className="form-chunk">
         <input
           placeholder="Name"
-          className="order-input-box"
+          className={
+            error
+              ? order.first_name === ""
+                ? "order-input-error"
+                : "order-input-success"
+              : "order-input-box"
+          }
           id="first_name"
           type="text"
           onChange={(event) => changeHandler(event)}
         />
         <input
           placeholder="Surname"
-          className="order-input-box"
+          className={
+            error
+              ? order.last_name === ""
+                ? "order-input-error"
+                : "order-input-success"
+              : "order-input-box"
+          }
           id="last_name"
           type="text"
           onChange={(event) => changeHandler(event)}
@@ -340,7 +357,13 @@ const OrderForm: React.FC<OrderFormProps> = ({
         />
         <input
           placeholder="Address 1"
-          className="order-input-box"
+          className={
+            error
+              ? order.address1 === ""
+                ? "order-input-error"
+                : "order-input-success"
+              : "order-input-box"
+          }
           id="address1"
           type="text"
           onChange={(event) => changeHandler(event)}
@@ -354,7 +377,13 @@ const OrderForm: React.FC<OrderFormProps> = ({
         />
 
         <CountryDropdown
-          id="country"
+          id={
+            error
+              ? order.country === ""
+                ? "country-error"
+                : "country-success"
+              : "country"
+          }
           value={order.country_code}
           valueType="short"
           priorityOptions={["CA", "US", "GB", "AU"]}
@@ -364,7 +393,13 @@ const OrderForm: React.FC<OrderFormProps> = ({
         />
 
         <RegionDropdown
-          id="region"
+          id={
+            error
+              ? order.state === ""
+                ? "region-error"
+                : "region-success"
+              : "region"
+          }
           country={order.country_code}
           countryValueType="short"
           value={order.province_code}
@@ -374,7 +409,13 @@ const OrderForm: React.FC<OrderFormProps> = ({
 
         <input
           placeholder="City"
-          className="order-input-box"
+          className={
+            error
+              ? order.city === ""
+                ? "order-input-error"
+                : "order-input-success"
+              : "order-input-box"
+          }
           id="city"
           type="text"
           onChange={(event) => changeHandler(event)}
@@ -382,13 +423,26 @@ const OrderForm: React.FC<OrderFormProps> = ({
 
         <input
           placeholder="ZIP/Postal"
-          className="order-input-box"
+          className={
+            error
+              ? order.zip === ""
+                ? "order-input-error"
+                : "order-input-success"
+              : "order-input-box"
+          }
           id="zip"
           type="text"
           onChange={(event) => changeHandler(event)}
         />
       </div>
       <div className="form-chunk">{formButton}</div>
+      {error ? (
+        <p className="order-error-text">
+          You have not filled out all the required fields
+        </p>
+      ) : (
+        ""
+      )}
     </form>
   );
 };

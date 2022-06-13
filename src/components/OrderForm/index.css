@@ -21,6 +21,34 @@
   margin-top: 0.5rem;
 }
 
+.order-input-error {
+  padding: 0.5em;
+  border: solid 1px;
+  font-family: "Neue Haas";
+  font-weight: bold;
+  color: white;
+  border-color: red;
+  background: none;
+  border-radius: 0.4em;
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.137);
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.order-input-success {
+  padding: 0.5em;
+  border: solid 1px;
+  font-family: "Neue Haas";
+  font-weight: bold;
+  color: white;
+  border-color: rgb(0, 255, 0);
+  background: none;
+  border-radius: 0.4em;
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.137);
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
 .order-input-box::placeholder {
   color: white;
 }
@@ -48,6 +76,36 @@
   margin-top: 0.5rem;
 }
 
+#country-error {
+  padding: 0.5em;
+  border: solid 1px;
+  font-family: "Neue Haas";
+  font-weight: bold;
+  color: white;
+  border-color: red;
+  background: none;
+  border-radius: 0.4em;
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.137);
+  width: 49%;
+  margin-right: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+#country-success {
+  padding: 0.5em;
+  border: solid 1px;
+  font-family: "Neue Haas";
+  font-weight: bold;
+  color: white;
+  border-color: rgb(0, 255, 0);
+  background: none;
+  border-radius: 0.4em;
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.137);
+  width: 49%;
+  margin-right: 0.25rem;
+  margin-top: 0.5rem;
+}
+
 #region {
   padding: 0.5em;
   border: solid 1px;
@@ -55,6 +113,36 @@
   font-weight: bold;
   color: white;
   border-color: var(--inventory-blue);
+  background: none;
+  border-radius: 0.75em;
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.137);
+  width: 48%;
+  margin-left: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+#region-error {
+  padding: 0.5em;
+  border: solid 1px;
+  font-family: "Neue Haas";
+  font-weight: bold;
+  color: white;
+  border-color: red;
+  background: none;
+  border-radius: 0.75em;
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.137);
+  width: 48%;
+  margin-left: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+#region-success {
+  padding: 0.5em;
+  border: solid 1px;
+  font-family: "Neue Haas";
+  font-weight: bold;
+  color: white;
+  border-color: rgb(0, 255, 0);
   background: none;
   border-radius: 0.75em;
   box-shadow: 0 0 50px rgba(255, 255, 255, 0.137);
@@ -154,4 +242,13 @@
   margin: 0;
   margin-left: 0.25rem;
   margin-top: 0.5rem;
+}
+
+.order-error-text {
+  height: 0px;
+  font-size: medium;
+  color: red;
+  margin: 0;
+  padding: 0;
+  transform: translateY(20px);
 }
