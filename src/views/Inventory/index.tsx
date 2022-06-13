@@ -35,20 +35,20 @@ function Inventory() {
     emptySlot,
   ];
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("Provider") === null) return;
-  //   if (localStorage.getItem("Provider") === "metamask") {
-  //     activate(MetaMask);
-  //     dispatch(changeProvider("metamask"));
-  //     return;
-  //   }
-  //   if (localStorage.getItem("Provider") === "walletconnect") {
-  //     resetWalletConnectConnector();
-  //     activate(WalletConnect);
-  //     dispatch(changeProvider("walletconnect"));
-  //     return;
-  //   }
-  // }, [activate, dispatch]);
+  useEffect(() => {
+    if (localStorage.getItem("Provider") === null) return;
+    if (localStorage.getItem("Provider") === "metamask") {
+      activate(MetaMask);
+      dispatch(changeProvider("metamask"));
+      return;
+    }
+    if (localStorage.getItem("Provider") === "walletconnect") {
+      resetWalletConnectConnector();
+      activate(WalletConnect);
+      dispatch(changeProvider("walletconnect"));
+      return;
+    }
+  }, [activate, dispatch]);
 
   useEffect(() => {
     if (chainId !== 4) return;
@@ -65,11 +65,7 @@ function Inventory() {
   return (
     <div className="inventory">
       <nav className={shopUp ? "inventory-nav-bg" : "inventory-nav"}>
-        {account === undefined ? (
-          <button className="login-btn">Connect a Wallet</button>
-        ) : (
-          <UserInfo />
-        )}
+        {account === undefined ? <ConnectButton /> : <UserInfo />}
       </nav>
       <h1 className={shopUp ? "inventory-title-bg" : "inventory-title"}>
         INVENTORY
