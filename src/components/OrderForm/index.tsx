@@ -324,66 +324,48 @@ const OrderForm: React.FC<OrderFormProps> = ({
       <div className="form-chunk">
         <input
           placeholder="Name"
-          className={
-            error
-              ? order.first_name === ""
-                ? "order-input-error"
-                : "order-input-success"
-              : "order-input-box"
-          }
+          className={`order-input ${
+            error && order.last_name === "" ? "error" : ""
+          } ${error && order.last_name !== "" ? "success" : ""}`}
           id="first_name"
           type="text"
           onChange={(event) => changeHandler(event)}
         />
         <input
           placeholder="Surname"
-          className={
-            error
-              ? order.last_name === ""
-                ? "order-input-error"
-                : "order-input-success"
-              : "order-input-box"
-          }
+          className={`order-input ${
+            error && order.last_name === "" ? "error" : ""
+          } ${error && order.last_name !== "" ? "success" : ""}`}
           id="last_name"
           type="text"
           onChange={(event) => changeHandler(event)}
         />
         <input
           placeholder="Email"
-          className="order-input-box"
+          className="order-input"
           id="email"
           type="text"
           onChange={(event) => changeHandler(event)}
         />
         <input
           placeholder="Address 1"
-          className={
-            error
-              ? order.address1 === ""
-                ? "order-input-error"
-                : "order-input-success"
-              : "order-input-box"
-          }
+          className={`order-input ${
+            error && order.address1 === "" ? "error" : ""
+          } ${error && order.address1 !== "" ? "success" : ""}`}
           id="address1"
           type="text"
           onChange={(event) => changeHandler(event)}
         />
         <input
           placeholder="Address 2"
-          className="order-input-box"
+          className="order-input"
           id="address2"
           type="text"
           onChange={(event) => changeHandler(event)}
         />
 
         <CountryDropdown
-          id={
-            error
-              ? order.country === ""
-                ? "country-error"
-                : "country-success"
-              : "country"
-          }
+          id="country"
           value={order.country_code}
           valueType="short"
           priorityOptions={["CA", "US", "GB", "AU"]}
@@ -393,13 +375,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
         />
 
         <RegionDropdown
-          id={
-            error
-              ? order.state === ""
-                ? "region-error"
-                : "region-success"
-              : "region"
-          }
+          id="region"
           country={order.country_code}
           countryValueType="short"
           value={order.province_code}
@@ -409,13 +385,9 @@ const OrderForm: React.FC<OrderFormProps> = ({
 
         <input
           placeholder="City"
-          className={
-            error
-              ? order.city === ""
-                ? "order-input-error"
-                : "order-input-success"
-              : "order-input-box"
-          }
+          className={`order-input ${
+            error && order.city === "" ? "error" : ""
+          } ${error && order.city !== "" ? "success" : ""}`}
           id="city"
           type="text"
           onChange={(event) => changeHandler(event)}
@@ -423,13 +395,9 @@ const OrderForm: React.FC<OrderFormProps> = ({
 
         <input
           placeholder="ZIP/Postal"
-          className={
-            error
-              ? order.zip === ""
-                ? "order-input-error"
-                : "order-input-success"
-              : "order-input-box"
-          }
+          className={`order-input ${error && order.zip === "" ? "error" : ""} ${
+            error && order.zip !== "" ? "success" : ""
+          }`}
           id="zip"
           type="text"
           onChange={(event) => changeHandler(event)}
