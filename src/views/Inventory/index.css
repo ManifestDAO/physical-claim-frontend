@@ -52,3 +52,26 @@
   min-width: 80vw;
   height: 1px;
 }
+
+.login-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 7px;
+  margin: 0.5em;
+  border: none;
+  padding: 1em;
+  color: black;
+  border-radius: 1.5em;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: 5%;
+  transition: 0.2s;
+  background-color: var(--inventory-blue);
+}
+
+.login-btn:hover {
+  cursor: pointer;
+  box-shadow: 0 0 5px var(--inventory-blue);
+  transition: 0.2s;
+}
