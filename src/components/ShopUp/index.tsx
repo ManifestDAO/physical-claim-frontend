@@ -10,9 +10,12 @@ interface ShopUpProps {
 
 const ShopUp: React.FC<ShopUpProps> = function ({ setShopUp }) {
   const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState(``);
+  const [response, setResponse] = useState("");
   const [apiReturn, setApiReturn] = useState("");
 
+  // TODO(Dala): we need to rework this entire page, how the logic is handled and break out into separate components.
+  //  A component for success, another for failure, and the form. They should all be completely different views instead of having,
+  //  one dynamic view that changes concent.
   return (
     <div className="shopup">
       <div
