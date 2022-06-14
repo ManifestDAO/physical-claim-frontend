@@ -10,6 +10,7 @@ import {
 } from "../../helpers/connectors";
 import { useDispatch } from "react-redux";
 import { changeProvider } from "../../slices/AccountSlice";
+import { METAMASK, WALLETCONNECT } from "../../constants/general";
 
 export default function ConnectButton() {
   const { activate } = useWeb3React();
@@ -17,13 +18,13 @@ export default function ConnectButton() {
 
   const metaConnect = async () => {
     await activate(MetaMask);
-    dispatch(changeProvider("metamask"));
+    dispatch(changeProvider(METAMASK));
   };
 
   const wcConnect = async () => {
     resetWalletConnectConnector();
     await activate(WalletConnect);
-    dispatch(changeProvider("walletconnect"));
+    dispatch(changeProvider(WALLETCONNECT));
   };
 
   return (

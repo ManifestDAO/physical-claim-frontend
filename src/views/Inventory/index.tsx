@@ -13,6 +13,7 @@ import {
 } from "../../helpers/connectors";
 import ConnectButton from "../../components/ConnectButton";
 import UserInfo from "../../components/UserInfo";
+import { METAMASK, WALLETCONNECT } from "../../constants/general";
 
 function Inventory() {
   const { account, chainId, activate, deactivate } = useWeb3React();
@@ -37,15 +38,17 @@ function Inventory() {
 
   useEffect(() => {
     if (localStorage.getItem("Provider") === null) return;
-    if (localStorage.getItem("Provider") === "metamask") {
+
+    if (localStorage.getItem("Provider") === METAMASK) {
       activate(MetaMask);
-      dispatch(changeProvider("metamask"));
+      dispatch(changeProvider(METAMASK));
       return;
     }
-    if (localStorage.getItem("Provider") === "walletconnect") {
+
+    if (localStorage.getItem("Provider") === METAMASK) {
       resetWalletConnectConnector();
       activate(WalletConnect);
-      dispatch(changeProvider("walletconnect"));
+      dispatch(changeProvider(WALLETCONNECT));
       return;
     }
   }, [activate, dispatch]);

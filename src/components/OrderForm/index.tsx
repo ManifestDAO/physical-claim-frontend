@@ -29,7 +29,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
   setResponse,
 }) => {
   const { library, chainId } = useWeb3React();
-  const [error, setError] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [orderState, setOrderState] = useState("");
   const order = useSelector((state: RootState) => state.order);
   const address = useSelector((state: RootState) => state.account.address);
@@ -173,10 +173,11 @@ const OrderForm: React.FC<OrderFormProps> = ({
       order.province === "" ||
       order.country === ""
     ) {
-      setError(true);
+      setIsError(true);
       return;
     }
-    setError(false);
+
+    setIsError(false);
     setOrderState("verifying");
 
     const signature = await signMessage(address, library);
@@ -325,8 +326,8 @@ const OrderForm: React.FC<OrderFormProps> = ({
         <input
           placeholder="Name"
           className={`order-input ${
-            error && order.last_name === "" ? "error" : ""
-          } ${error && order.last_name !== "" ? "success" : ""}`}
+            isError && order.first_name === "" && "error"
+          } ${isError && order.first_name !== "" && "success"}`}
           id="first_name"
           type="text"
           onChange={(event) => changeHandler(event)}
@@ -334,8 +335,8 @@ const OrderForm: React.FC<OrderFormProps> = ({
         <input
           placeholder="Surname"
           className={`order-input ${
-            error && order.last_name === "" ? "error" : ""
-          } ${error && order.last_name !== "" ? "success" : ""}`}
+            isError && order.last_name === "" && "error"
+          } ${isError && order.last_name !== "" && "success"}`}
           id="last_name"
           type="text"
           onChange={(event) => changeHandler(event)}
@@ -350,8 +351,8 @@ const OrderForm: React.FC<OrderFormProps> = ({
         <input
           placeholder="Address 1"
           className={`order-input ${
-            error && order.address1 === "" ? "error" : ""
-          } ${error && order.address1 !== "" ? "success" : ""}`}
+            isError && order.address1 === "" && "error"
+          } ${isError && order.address1 !== "" && "success"}`}
           id="address1"
           type="text"
           onChange={(event) => changeHandler(event)}
@@ -385,9 +386,9 @@ const OrderForm: React.FC<OrderFormProps> = ({
 
         <input
           placeholder="City"
-          className={`order-input ${
-            error && order.city === "" ? "error" : ""
-          } ${error && order.city !== "" ? "success" : ""}`}
+          className={`order-input ${isError && order.city === "" && "error"} ${
+            isError && order.city !== "" && "success"
+          }`}
           id="city"
           type="text"
           onChange={(event) => changeHandler(event)}
@@ -395,8 +396,8 @@ const OrderForm: React.FC<OrderFormProps> = ({
 
         <input
           placeholder="ZIP/Postal"
-          className={`order-input ${error && order.zip === "" ? "error" : ""} ${
-            error && order.zip !== "" ? "success" : ""
+          className={`order-input ${isError && order.zip === "" && "error"} ${
+            isError && order.zip !== "" && "success"
           }`}
           id="zip"
           type="text"
@@ -404,12 +405,11 @@ const OrderForm: React.FC<OrderFormProps> = ({
         />
       </div>
       <div className="form-chunk">{formButton}</div>
-      {error ? (
+
+      {isError && (
         <p className="order-error-text">
           You have not filled out all the required fields
         </p>
-      ) : (
-        ""
       )}
     </form>
   );

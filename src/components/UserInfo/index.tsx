@@ -7,6 +7,7 @@ import WCIcon from "../../assets/walleticons/wcicon.png";
 import { useWeb3React } from "@web3-react/core";
 import { changeProvider } from "../../slices/AccountSlice";
 import { clear } from "../../slices/NFTSlice";
+import { METAMASK } from "../../constants/general";
 
 export default function UserInfo() {
   const { deactivate } = useWeb3React();
@@ -25,7 +26,7 @@ export default function UserInfo() {
 
   return (
     <div className="user-info" onClick={() => logOut()}>
-      {walletprovider === "metamask" ? (
+      {walletprovider === METAMASK ? (
         <img src={MMIcon} alt="metamasklogo" className="walleticon-userinfo" />
       ) : (
         <img
