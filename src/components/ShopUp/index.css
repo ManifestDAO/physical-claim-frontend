@@ -4,10 +4,11 @@
   right: 0;
   bottom: 0;
   width: 100%;
-  max-height: 100vh;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.658);
   display: flex;
   justify-content: center;
+  flex-direction: column;
   position: fixed;
   align-items: center;
   z-index: 2;

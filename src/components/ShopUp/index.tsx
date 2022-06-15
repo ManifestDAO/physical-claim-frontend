@@ -3,12 +3,14 @@ import OrderForm from "../OrderForm";
 import success from "../../assets/order/success-icon.png";
 import failure from "../../assets/order/failure-icon.png";
 import "./index.css";
+import { useWeb3React } from "@web3-react/core";
 
 interface ShopUpProps {
   setShopUp: any;
 }
 
 const ShopUp: React.FC<ShopUpProps> = function ({ setShopUp }) {
+  const { account } = useWeb3React();
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState("");
   const [apiReturn, setApiReturn] = useState("");
