@@ -1,3 +1,4 @@
+/* TODO Order form needs to be responsive for mobile also allow scrolling somehow, when screen height is too short the form cannot be fully used. */
 .order-form {
   display: flex;
   justify-content: center;
@@ -7,7 +8,7 @@
   width: 100%;
 }
 
-.order-input-box {
+.order-input {
   padding: 0.5em;
   border: solid 1px;
   font-family: "Neue Haas";
@@ -21,32 +22,12 @@
   margin-top: 0.5rem;
 }
 
-.order-input-error {
-  padding: 0.5em;
-  border: solid 1px;
-  font-family: "Neue Haas";
-  font-weight: bold;
-  color: white;
+.order-input.error {
   border-color: red;
-  background: none;
-  border-radius: 0.4em;
-  box-shadow: 0 0 50px rgba(255, 255, 255, 0.137);
-  width: 100%;
-  margin-top: 0.5rem;
 }
 
-.order-input-success {
-  padding: 0.5em;
-  border: solid 1px;
-  font-family: "Neue Haas";
-  font-weight: bold;
-  color: white;
-  border-color: rgb(0, 255, 0);
-  background: none;
-  border-radius: 0.4em;
-  box-shadow: 0 0 50px rgba(255, 255, 255, 0.137);
-  width: 100%;
-  margin-top: 0.5rem;
+.order-input.success {
+  border-color: lightgreen;
 }
 
 .order-input-box::placeholder {
@@ -76,34 +57,8 @@
   margin-top: 0.5rem;
 }
 
-#country-error {
-  padding: 0.5em;
-  border: solid 1px;
-  font-family: "Neue Haas";
-  font-weight: bold;
-  color: white;
+#country.error {
   border-color: red;
-  background: none;
-  border-radius: 0.4em;
-  box-shadow: 0 0 50px rgba(255, 255, 255, 0.137);
-  width: 49%;
-  margin-right: 0.25rem;
-  margin-top: 0.5rem;
-}
-
-#country-success {
-  padding: 0.5em;
-  border: solid 1px;
-  font-family: "Neue Haas";
-  font-weight: bold;
-  color: white;
-  border-color: rgb(0, 255, 0);
-  background: none;
-  border-radius: 0.4em;
-  box-shadow: 0 0 50px rgba(255, 255, 255, 0.137);
-  width: 49%;
-  margin-right: 0.25rem;
-  margin-top: 0.5rem;
 }
 
 #region {
@@ -114,26 +69,15 @@
   color: white;
   border-color: var(--inventory-blue);
   background: none;
-  border-radius: 0.75em;
+  border-radius: 0.4em;
   box-shadow: 0 0 50px rgba(255, 255, 255, 0.137);
   width: 48%;
   margin-left: 0.25rem;
   margin-top: 0.5rem;
 }
 
-#region-error {
-  padding: 0.5em;
-  border: solid 1px;
-  font-family: "Neue Haas";
-  font-weight: bold;
-  color: white;
+#region.error {
   border-color: red;
-  background: none;
-  border-radius: 0.75em;
-  box-shadow: 0 0 50px rgba(255, 255, 255, 0.137);
-  width: 48%;
-  margin-left: 0.25rem;
-  margin-top: 0.5rem;
 }
 
 #region-success {
