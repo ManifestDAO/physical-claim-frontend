@@ -13,6 +13,7 @@ import { RootState } from "../../store";
 import { useWeb3React } from "@web3-react/core";
 import { update } from "../../slices/OrderSlice";
 import { ADDRESSES } from "../../constants/addresses";
+import { useAccount, useNetwork, useSigner } from "wagmi";
 
 interface NFTCardProps {
   shopUp: boolean;
@@ -25,8 +26,14 @@ const NFTCard: React.FC<NFTCardProps> = function ({
   setShopUp,
   emptyArray,
 }) {
-  const { account, chainId, library } = useWeb3React();
+  // const { account, chainId, library } = useWeb3React();
   const dispatch = useDispatch();
+  const [account, setAccount] = useState("");
+  const [chainId, setChainId] = useState(4);
+
+  const { data } = useAccount();
+  const { activeChain } = useNetwork();
+  const { data: library } = useSigner();
 
   const [selected, setSelected] = useState<number>();
   const [klimaSelected, setKlimaSelected] = useState<any>();
@@ -39,8 +46,15 @@ const NFTCard: React.FC<NFTCardProps> = function ({
   const status = useSelector((state: RootState) => state.nfts.status);
 
   useEffect(() => {
-    console.log(newNfts);
-  }, [newNfts]);
+    if (activeChain === undefined) return;
+    setChainId(activeChain.id);
+  }, [activeChain]);
+
+  useEffect(() => {
+    if (data === undefined) return;
+    if (data?.address === null) return;
+    setAccount(data?.address as string);
+  }, [data]);
 
   useEffect(() => {
     if (selected === undefined || account === undefined) return;

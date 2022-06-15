@@ -1,6 +1,9 @@
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 
+import { MetaMaskConnector } from "wagmi/connectors/metaMask";
+import { WalletConnectConnector as WagmiConnectConnector } from "wagmi/connectors/walletConnect";
+
 export const MetaMask = new InjectedConnector({});
 
 export const WalletConnect = new WalletConnectConnector({
@@ -16,3 +19,11 @@ export function resetWalletConnectConnector(connector) {
     connector.walletConnectProvider = undefined;
   }
 }
+
+export const metaMaskConnect = new MetaMaskConnector();
+
+export const walletConnectConnect = new WagmiConnectConnector({
+  options: {
+    qrcode: true,
+  },
+});

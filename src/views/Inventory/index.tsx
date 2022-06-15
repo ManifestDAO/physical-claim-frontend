@@ -13,11 +13,17 @@ import {
 } from "../../helpers/connectors";
 import UserInfo from "../../components/UserInfo";
 import ConnectMenu from "../../components/ConnectMenu";
+import { useAccount, useNetwork } from "wagmi";
 
 function Inventory() {
-  const { account, chainId, activate, deactivate } = useWeb3React();
+  // const { account, chainId, activate, deactivate } = useWeb3React();
   const [shopUp, setShopUp] = useState(false);
   const [connectMenu, setConnectMenu] = useState(false);
+  const [account, setAccount] = useState("");
+  const [chainId, setChainId] = useState(4);
+
+  const { data } = useAccount();
+  const { activeChain } = useNetwork();
 
   const dispatch = useDispatch();
 
@@ -37,19 +43,30 @@ function Inventory() {
   ];
 
   useEffect(() => {
-    if (localStorage.getItem("Provider") === null) return;
-    if (localStorage.getItem("Provider") === "metamask") {
-      activate(MetaMask);
-      dispatch(changeProvider("metamask"));
-      return;
-    }
-    if (localStorage.getItem("Provider") === "walletconnect") {
-      resetWalletConnectConnector();
-      activate(WalletConnect);
-      dispatch(changeProvider("walletconnect"));
-      return;
-    }
-  }, [activate, dispatch]);
+    if (data === undefined) return;
+    if (data?.address === null) return;
+    setAccount(data?.address as string);
+  }, [data]);
+
+  useEffect(() => {
+    if (activeChain === undefined) return;
+    setChainId(activeChain.id);
+  }, [activeChain]);
+
+  // useEffect(() => {
+  //   if (localStorage.getItem("Provider") === null) return;
+  //   if (localStorage.getItem("Provider") === "metamask") {
+  //     activate(MetaMask);
+  //     dispatch(changeProvider("metamask"));
+  //     return;
+  //   }
+  //   if (localStorage.getItem("Provider") === "walletconnect") {
+  //     resetWalletConnectConnector();
+  //     activate(WalletConnect);
+  //     dispatch(changeProvider("walletconnect"));
+  //     return;
+  //   }
+  // }, [activate, dispatch]);
 
   useEffect(() => {
     if (chainId !== chainIds.ETH_RINKEBY_TESTNET) return;
@@ -59,9 +76,9 @@ function Inventory() {
   useEffect(() => {
     if (chainId !== chainIds.ETH_RINKEBY_TESTNET && account !== undefined) {
       window.alert("Connect to Rinkeby Testnet");
-      deactivate();
+      // deactivate();
     }
-  }, [chainId, account, deactivate]);
+  }, [chainId, account]);
 
   return (
     <div className="inventory">
