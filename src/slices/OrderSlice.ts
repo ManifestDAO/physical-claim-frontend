@@ -19,6 +19,11 @@ const initialState = {
   province_code: "",
 };
 
+// TODO(Dala): the keys for the update_info case should be constants, then use those constants in the form. There should not be duplicate
+//  string in different areas of the app, any change here or at the form can break it and be difficult to troubleshoot.
+
+// TODO(Dala): the case strings are generally constants and all upper calse.
+
 const OrderSlice = createSlice({
   name: "order",
   initialState,

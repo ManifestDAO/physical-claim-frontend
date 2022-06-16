@@ -29,7 +29,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
   setResponse,
 }) => {
   const { library, chainId } = useWeb3React();
-  const [error, setError] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [orderState, setOrderState] = useState("");
   const order = useSelector((state: RootState) => state.order);
   const address = useSelector((state: RootState) => state.account.address);
@@ -173,13 +173,19 @@ const OrderForm: React.FC<OrderFormProps> = ({
       order.province === "" ||
       order.country === ""
     ) {
-      setError(true);
+      setIsError(true);
       return;
     }
-    setError(false);
+
+    setIsError(false);
     setOrderState("verifying");
 
     const signature = await signMessage(address, library);
+    if (signature === undefined) {
+      setApiReturn("failure");
+      setResponse("Failed to verify ownership");
+      return;
+    }
 
     setOrderState("approving");
     const approvedReceipt = await approve();
@@ -230,6 +236,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
         setApiReturn("failure");
         setResponse("ERROR: No API Response");
       }
+      console.log(JSON.parse(response.body).message);
       if (
         response.body ===
         '{"message":"Something went wrong. error(Error: Product not found)"}'
@@ -237,7 +244,6 @@ const OrderForm: React.FC<OrderFormProps> = ({
         setApiReturn("failure");
         setResponse(response.body);
       }
-      console.log(JSON.parse(response.body).message);
       if (error) {
         setApiReturn("failure");
         setResponse(`ERROR: ${error}`);
@@ -319,35 +325,41 @@ const OrderForm: React.FC<OrderFormProps> = ({
       <div className="form-chunk">
         <input
           placeholder="Name"
-          className="order-input-box"
+          className={`order-input ${
+            isError && order.first_name === "" && "error"
+          } ${isError && order.first_name !== "" && "success"}`}
           id="first_name"
           type="text"
           onChange={(event) => changeHandler(event)}
         />
         <input
           placeholder="Surname"
-          className="order-input-box"
+          className={`order-input ${
+            isError && order.last_name === "" && "error"
+          } ${isError && order.last_name !== "" && "success"}`}
           id="last_name"
           type="text"
           onChange={(event) => changeHandler(event)}
         />
         <input
           placeholder="Email"
-          className="order-input-box"
+          className="order-input"
           id="email"
           type="text"
           onChange={(event) => changeHandler(event)}
         />
         <input
           placeholder="Address 1"
-          className="order-input-box"
+          className={`order-input ${
+            isError && order.address1 === "" && "error"
+          } ${isError && order.address1 !== "" && "success"}`}
           id="address1"
           type="text"
           onChange={(event) => changeHandler(event)}
         />
         <input
           placeholder="Address 2"
-          className="order-input-box"
+          className="order-input"
           id="address2"
           type="text"
           onChange={(event) => changeHandler(event)}
@@ -374,7 +386,9 @@ const OrderForm: React.FC<OrderFormProps> = ({
 
         <input
           placeholder="City"
-          className="order-input-box"
+          className={`order-input ${isError && order.city === "" && "error"} ${
+            isError && order.city !== "" && "success"
+          }`}
           id="city"
           type="text"
           onChange={(event) => changeHandler(event)}
@@ -382,13 +396,21 @@ const OrderForm: React.FC<OrderFormProps> = ({
 
         <input
           placeholder="ZIP/Postal"
-          className="order-input-box"
+          className={`order-input ${isError && order.zip === "" && "error"} ${
+            isError && order.zip !== "" && "success"
+          }`}
           id="zip"
           type="text"
           onChange={(event) => changeHandler(event)}
         />
       </div>
       <div className="form-chunk">{formButton}</div>
+
+      {isError && (
+        <p className="order-error-text">
+          You have not filled out all the required fields
+        </p>
+      )}
     </form>
   );
 };

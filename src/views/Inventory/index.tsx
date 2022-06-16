@@ -11,12 +11,13 @@ import {
   resetWalletConnectConnector,
   WalletConnect,
 } from "../../helpers/connectors";
-import ConnectButton from "../../components/ConnectButton";
 import UserInfo from "../../components/UserInfo";
+import ConnectMenu from "../../components/ConnectMenu";
 
 function Inventory() {
   const { account, chainId, activate, deactivate } = useWeb3React();
   const [shopUp, setShopUp] = useState(false);
+  const [connectMenu, setConnectMenu] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -51,7 +52,7 @@ function Inventory() {
   }, [activate, dispatch]);
 
   useEffect(() => {
-    if (chainId !== 4) return;
+    if (chainId !== chainIds.ETH_RINKEBY_TESTNET) return;
     dispatch(getAccountInfo({ account: account }));
   }, [account, dispatch, chainId]);
 
@@ -65,11 +66,18 @@ function Inventory() {
   return (
     <div className="inventory">
       <nav className={shopUp ? "inventory-nav-bg" : "inventory-nav"}>
-        {account === undefined ? <ConnectButton /> : <UserInfo />}
+        {account === undefined ? (
+          <button className="login-btn" onClick={() => setConnectMenu(true)}>
+            Connect a Wallet
+          </button>
+        ) : (
+          <UserInfo />
+        )}
       </nav>
       <h1 className={shopUp ? "inventory-title-bg" : "inventory-title"}>
         INVENTORY
       </h1>
+      {connectMenu ? <ConnectMenu setConnectMenu={setConnectMenu} /> : ""}
       {shopUp ? <ShopUp setShopUp={setShopUp} /> : ""}
       {account !== undefined ? (
         <NFTCard
@@ -78,7 +86,7 @@ function Inventory() {
           emptyArray={emptyArray}
         />
       ) : (
-        <div className="nft-screen">
+        <div className={shopUp || connectMenu ? "nft-screen-bg" : "nft-screen"}>
           <div className="nft-chunk">{emptyArray}</div>
         </div>
       )}
