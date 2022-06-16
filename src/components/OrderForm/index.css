@@ -1,3 +1,4 @@
+/* TODO Order form needs to be responsive for mobile also allow scrolling somehow, when screen height is too short the form cannot be fully used. */
 .order-form {
   display: flex;
   justify-content: center;
@@ -7,7 +8,7 @@
   width: 100%;
 }
 
-.order-input-box {
+.order-input {
   padding: 0.5em;
   border: solid 1px;
   font-family: "Neue Haas";

@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import "./index.css";
 import MMIcon from "../../assets/walleticons/mmicon.png";
@@ -62,7 +63,7 @@ const ConnectMenu = ({ setConnectMenu }: Connect) => {
   //   setConnectMenu(false);
   //   dispatch(changeProvider("walletconnect"));
   // };
-
+  
   return (
     <div className="connect-menu-outer">
       <div className="connect-menu">

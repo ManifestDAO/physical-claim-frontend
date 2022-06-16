@@ -185,10 +185,11 @@ const OrderForm: React.FC<OrderFormProps> = ({
       order.province === "" ||
       order.country === ""
     ) {
-      setError(true);
+      setIsError(true);
       return;
     }
-    setError(false);
+
+    setIsError(false);
     setOrderState("verifying");
 
     const signature = await signMessage(address, library);
@@ -362,7 +363,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
         />
         <input
           placeholder="Email"
-          className="order-input-box"
+          className="order-input"
           id="email"
           type="text"
           onChange={(event) => changeHandler(event)}
@@ -382,7 +383,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
         />
         <input
           placeholder="Address 2"
-          className="order-input-box"
+          className="order-input"
           id="address2"
           type="text"
           onChange={(event) => changeHandler(event)}
