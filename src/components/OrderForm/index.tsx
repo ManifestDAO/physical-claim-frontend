@@ -1,5 +1,5 @@
 import { useWeb3React } from "@web3-react/core";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 import {
   KlimaShirtNames,
@@ -16,6 +16,7 @@ import { ethers } from "ethers";
 import { ADDRESSES } from "../../constants/addresses";
 import { BurnABI } from "../../constants/ABIs/BurnABI";
 import { KlimaABI } from "../../constants/ABIs/KlimaABI";
+import { useNetwork, useSigner } from "wagmi";
 
 interface OrderFormProps {
   setLoading: any;
@@ -28,12 +29,26 @@ const OrderForm: React.FC<OrderFormProps> = ({
   setApiReturn,
   setResponse,
 }) => {
-  const { library, chainId } = useWeb3React();
+  // const { library, chainId } = useWeb3React();
+  const [chainId, setChainId] = useState(4);
+
   const [error, setError] = useState(false);
   const [orderState, setOrderState] = useState("");
   const order = useSelector((state: RootState) => state.order);
   const address = useSelector((state: RootState) => state.account.address);
   const dispatch = useDispatch();
+
+  const { activeChain } = useNetwork();
+  const { data: library } = useSigner();
+
+  useEffect(() => {
+    console.log(library);
+  }, [library]);
+
+  useEffect(() => {
+    if (activeChain === undefined) return;
+    setChainId(activeChain.id);
+  }, [activeChain]);
 
   const changeHandler = (event: any) => {
     dispatch(
@@ -89,8 +104,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
 
   async function signMessage(address: string, library: any) {
     try {
-      const provider = await library;
-      const signer = await provider.getSigner();
+      const signer = await library;
       const signature = await signer.signMessage("Verify Wallet");
 
       return {
@@ -105,8 +119,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
 
   async function approve() {
     try {
-      const provider = await library;
-      const signer = await provider.getSigner();
+      const signer: any = await library;
       const contract = new ethers.Contract(
         order.nft_address,
         KlimaABI[chainId as number],
@@ -135,8 +148,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
 
   async function burn(library: any, chainId: any) {
     try {
-      const provider = await library;
-      const signer = await provider.getSigner();
+      const signer = await library;
       const contract = new ethers.Contract(
         ADDRESSES[chainId].BURN_CONTRACT,
         BurnABI[chainId],
