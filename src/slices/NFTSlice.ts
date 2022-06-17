@@ -6,16 +6,15 @@ import { fetchNFTS } from "../helpers/getNFTs";
 interface NFTThunk {
   address: string;
   chainId: number;
-  library: any;
+  signer: any;
 }
 
 export const getNFTInfo: any = createAsyncThunk(
   "nfts/getNFTInfo",
-  async ({ address, chainId, library }: NFTThunk) => {
-    console.log(address);
+  async ({ address, chainId, signer }: NFTThunk) => {
     try {
       const nftList = await fetchNFTS(address, chainId);
-      const balances = await getNFTBalances(address, library, chainId);
+      const balances = await getNFTBalances(address, signer, chainId);
 
       return { nftList, chainId, balances };
     } catch (err) {
