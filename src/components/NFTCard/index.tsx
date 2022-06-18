@@ -12,6 +12,7 @@ import { RootState } from "../../store";
 import { update } from "../../slices/OrderSlice";
 import { ADDRESSES } from "../../constants/addresses";
 import { useAccount, useNetwork, useSigner } from "wagmi";
+import { chainIds } from "../../constants/chainIds";
 
 interface NFTCardProps {
   shopUp: boolean;
@@ -27,7 +28,7 @@ const NFTCard: React.FC<NFTCardProps> = function ({
   const dispatch = useDispatch();
 
   const [account, setAccount] = useState("");
-  const [chainId, setChainId] = useState(4);
+  const [chainId, setChainId] = useState(chainIds.ETH_RINKEBY_TESTNET);
 
   const [selected, setSelected] = useState<number>();
   const [klimaSelected, setKlimaSelected] = useState<any>();

@@ -15,7 +15,7 @@ function Inventory() {
   const [connectMenu, setConnectMenu] = useState(false);
 
   const [account, setAccount] = useState("");
-  const [chainId, setChainId] = useState(4);
+  const [chainId, setChainId] = useState(chainIds.ETH_RINKEBY_TESTNET);
 
   const { connect } = useConnect();
   const { disconnect } = useDisconnect();

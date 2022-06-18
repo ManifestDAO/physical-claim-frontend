@@ -17,6 +17,7 @@ import { ADDRESSES } from "../../constants/addresses";
 import { BurnABI } from "../../constants/ABIs/BurnABI";
 import { KlimaABI } from "../../constants/ABIs/KlimaABI";
 import { useNetwork, useSigner } from "wagmi";
+import { chainIds } from "../../constants/chainIds";
 
 interface OrderFormProps {
   setLoading: any;
@@ -31,7 +32,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
 }) => {
   const [isError, setIsError] = useState(false);
   const [orderState, setOrderState] = useState("");
-  const [chainId, setChainId] = useState(4);
+  const [chainId, setChainId] = useState(chainIds.ETH_RINKEBY_TESTNET);
 
   const order = useSelector((state: RootState) => state.order);
   const address = useSelector((state: RootState) => state.account.address);
