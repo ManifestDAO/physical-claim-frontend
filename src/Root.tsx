@@ -8,18 +8,16 @@ import {
 import App from "./App";
 import { Provider } from "react-redux";
 import { store } from "./store";
+import { WagmiConfig, createClient } from "wagmi";
 
-const getLibrary = async (connector: ExternalProvider | JsonRpcFetchFunc) => {
-  const library = new Web3Provider(connector);
-  return library;
-};
+const client = createClient();
 
 export default function Root() {
   return (
-    <Web3ReactProvider getLibrary={getLibrary}>
+    <WagmiConfig client={client}>
       <Provider store={store}>
         <App />
       </Provider>
-    </Web3ReactProvider>
+    </WagmiConfig>
   );
 }
