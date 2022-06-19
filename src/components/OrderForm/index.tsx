@@ -1,5 +1,5 @@
 import { useWeb3React } from "@web3-react/core";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 import {
   KlimaShirtNames,
@@ -34,6 +34,10 @@ const OrderForm: React.FC<OrderFormProps> = ({
   const order = useSelector((state: RootState) => state.order);
   const address = useSelector((state: RootState) => state.account.address);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log(order);
+  }, [order]);
 
   const changeHandler = (event: any) => {
     dispatch(

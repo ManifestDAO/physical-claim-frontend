@@ -51,7 +51,7 @@ const NFTCard: React.FC<NFTCardProps> = function ({
           key: ["nft_address", "nft_tokenid", "product"],
           value: [
             newNfts[selected].contract.address,
-            newNfts[selected].id.tokenId,
+            parseInt(newNfts[selected].id.tokenId).toString(),
             newNfts[selected].contract.address ===
             ADDRESSES[chainId as number].KLIMATEES
               ? "klima"
