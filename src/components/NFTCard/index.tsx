@@ -39,10 +39,6 @@ const NFTCard: React.FC<NFTCardProps> = function ({
   const status = useSelector((state: RootState) => state.nfts.status);
 
   useEffect(() => {
-    console.log(newNfts);
-  }, [newNfts]);
-
-  useEffect(() => {
     if (selected === undefined || account === undefined) return;
     try {
       dispatch(
@@ -51,7 +47,7 @@ const NFTCard: React.FC<NFTCardProps> = function ({
           key: ["nft_address", "nft_tokenid", "product"],
           value: [
             newNfts[selected].contract.address,
-            parseInt(newNfts[selected].id.tokenId).toString(),
+            parseInt(newNfts[selected].id.tokenId).toString().toLowerCase(),
             newNfts[selected].contract.address ===
             ADDRESSES[chainId as number].KLIMATEES
               ? "klima"
