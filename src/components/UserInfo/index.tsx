@@ -8,10 +8,9 @@ import { useWeb3React } from "@web3-react/core";
 import { changeProvider } from "../../slices/AccountSlice";
 import { clear } from "../../slices/NFTSlice";
 import { METAMASK } from "../../constants/general";
-import { useDisconnect } from "wagmi";
 
 export default function UserInfo() {
-  const { disconnect } = useDisconnect();
+  const { deactivate } = useWeb3React();
   const dispatch = useDispatch();
 
   const walletprovider = useSelector(
@@ -21,7 +20,7 @@ export default function UserInfo() {
 
   const logOut = () => {
     dispatch(changeProvider(undefined));
-    disconnect();
+    deactivate();
     dispatch(clear({ klima: [], genesis: [] }));
   };
 

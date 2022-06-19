@@ -3,7 +3,9 @@ import { GenesisABI } from "../constants/ABIs/GenesisABI";
 import { KlimaABI } from "../constants/ABIs/KlimaABI";
 import { ADDRESSES } from "../constants/addresses";
 
-export async function getNFTBalances(address, signer, chainId) {
+export async function getNFTBalances(address, library, chainId) {
+  const provider = await library;
+  const signer = await provider.getSigner();
   const klimaContract = new ethers.Contract(
     ADDRESSES[chainId].KLIMATEES,
     KlimaABI[chainId],

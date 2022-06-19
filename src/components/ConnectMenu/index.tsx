@@ -2,27 +2,32 @@ import React from "react";
 import "./index.css";
 import MMIcon from "../../assets/walleticons/mmicon.png";
 import WCIcon from "../../assets/walleticons/wcicon.png";
+import { useWeb3React } from "@web3-react/core";
+import {
+  MetaMask,
+  resetWalletConnectConnector,
+  WalletConnect,
+} from "../../helpers/connectors";
 import { useDispatch } from "react-redux";
 import { changeProvider } from "../../slices/AccountSlice";
-import { useConnect } from "wagmi";
-import { metaMask, walletConnect } from "../../helpers/connectors";
 
 interface Connect {
   setConnectMenu: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ConnectMenu = ({ setConnectMenu }: Connect) => {
-  const { connect } = useConnect();
+  const { activate } = useWeb3React();
   const dispatch = useDispatch();
 
   const metaConnect = async () => {
-    await connect(metaMask);
+    await activate(MetaMask);
     setConnectMenu(false);
     dispatch(changeProvider("metamask"));
   };
 
   const wcConnect = async () => {
-    await connect(walletConnect);
+    resetWalletConnectConnector();
+    await activate(WalletConnect);
     setConnectMenu(false);
     dispatch(changeProvider("walletconnect"));
   };

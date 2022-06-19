@@ -1,37 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { useWeb3React } from "@web3-react/core";
 import "./index.css";
 import { useDispatch } from "react-redux";
 import { changeProvider, getAccountInfo } from "../../slices/AccountSlice";
 import { chainIds } from "../../constants/chainIds";
 import NFTCard from "../../components/NFTCard/index";
 import ShopUp from "../../components/ShopUp";
+import {
+  MetaMask,
+  resetWalletConnectConnector,
+  WalletConnect,
+} from "../../helpers/connectors";
 import UserInfo from "../../components/UserInfo";
 import ConnectMenu from "../../components/ConnectMenu";
-import { metaMask, walletConnect } from "../../helpers/connectors";
-import { useAccount, useConnect, useDisconnect, useNetwork } from "wagmi";
 
 function Inventory() {
+  const { account, chainId, activate, deactivate } = useWeb3React();
   const [shopUp, setShopUp] = useState(false);
   const [connectMenu, setConnectMenu] = useState(false);
-
-  const [account, setAccount] = useState("");
-  const [chainId, setChainId] = useState(chainIds.ETH_RINKEBY_TESTNET);
-
-  const { connect } = useConnect();
-  const { disconnect } = useDisconnect();
-  const { data } = useAccount();
-  const { activeChain } = useNetwork();
-
-  useEffect(() => {
-    if (data?.address === null) return;
-    if (data === undefined) return;
-    setAccount(data?.address as string);
-  }, [data]);
-
-  useEffect(() => {
-    if (activeChain === undefined) return;
-    setChainId(activeChain.id);
-  }, [data]);
 
   const dispatch = useDispatch();
 
@@ -53,16 +39,17 @@ function Inventory() {
   useEffect(() => {
     if (localStorage.getItem("Provider") === null) return;
     if (localStorage.getItem("Provider") === "metamask") {
-      connect(metaMask);
+      activate(MetaMask);
       dispatch(changeProvider("metamask"));
       return;
     }
     if (localStorage.getItem("Provider") === "walletconnect") {
-      connect(walletConnect);
+      resetWalletConnectConnector();
+      activate(WalletConnect);
       dispatch(changeProvider("walletconnect"));
       return;
     }
-  }, [connect, dispatch]);
+  }, [activate, dispatch]);
 
   useEffect(() => {
     if (chainId !== chainIds.ETH_RINKEBY_TESTNET) return;
@@ -72,9 +59,9 @@ function Inventory() {
   useEffect(() => {
     if (chainId !== chainIds.ETH_RINKEBY_TESTNET && account !== undefined) {
       window.alert("Connect to Rinkeby Testnet");
-      disconnect();
+      deactivate();
     }
-  }, [chainId, account]);
+  }, [chainId, account, deactivate]);
 
   return (
     <div className="inventory">

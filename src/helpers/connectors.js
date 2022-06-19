@@ -1,10 +1,18 @@
-import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
-import { MetaMaskConnector } from "wagmi/connectors/metaMask";
+import { InjectedConnector } from "@web3-react/injected-connector";
+import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 
-export const metaMask = new MetaMaskConnector();
+export const MetaMask = new InjectedConnector({});
 
-export const walletConnect = new WalletConnectConnector({
-  options: {
-    qrcode: true,
+export const WalletConnect = new WalletConnectConnector({
+  rpc: {
+    4: "https://eth-rinkeby.gateway.pokt.network/v1/lb/624641008f496c003a4bc1fa",
   },
+  qrcode: true,
+  bridge: "https://bridge.walletconnect.org",
 });
+
+export function resetWalletConnectConnector(connector) {
+  if (connector && connector instanceof WalletConnectConnector) {
+    connector.walletConnectProvider = undefined;
+  }
+}
