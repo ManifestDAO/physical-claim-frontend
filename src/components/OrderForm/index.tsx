@@ -216,7 +216,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
       },
       body: JSON.stringify({
         nft_address: order.nft_address,
-        nft_tokenid: order.nft_tokenid,
+        nft_tokenid: parseInt(order.nft_tokenid),
         size: order.size,
         email: order.email,
         first_name: order.first_name,
