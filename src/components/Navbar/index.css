@@ -5,6 +5,7 @@
   height: 75px;
   width: 100%;
   z-index: 1;
+  cursor: crosshair;
 }
 
 .navbar > li {
@@ -14,14 +15,19 @@
 
 .nav-text {
   font-family: "Neue Haas";
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: normal;
   color: white;
-  margin-left: 2em;
+  margin-left: 1em;
   transition: 0.2s;
+  cursor: crosshair;
 }
 
-.navbar:hover .nav-text {
+.nav-text span {
+  cursor: crosshair;
+}
+
+.nav-text:hover {
   filter: drop-shadow(0 0 10px white);
   transition: 0.2s;
 }
@@ -29,7 +35,6 @@
 .navbar:hover .nav-logo {
   filter: drop-shadow(0 0 10px white);
   transition: 0.2s;
-  cursor: pointer;
 }
 
 .nav-text a {

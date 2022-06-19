@@ -17,7 +17,7 @@ const Home = () => {
       <div
         className="manifest column parent-flex"
         onMouseEnter={() => setIsManifestShown(true)}
-        onMouseLeave={() => setIsManifestShown(false)}
+        onMouseLeave={() => setTimeout(() => setIsManifestShown(false), 500)}
       >
         <div className="img">
           <RatioImage />
@@ -45,7 +45,7 @@ const Home = () => {
       <div
         className="create column parent-flex"
         onMouseEnter={() => setIsCreateShown(true)}
-        onMouseLeave={() => setIsCreateShown(false)}
+        onMouseLeave={() => setTimeout(() => setIsCreateShown(false), 500)}
       >
         <div className="img">
           <FlowerImage />
@@ -73,7 +73,7 @@ const Home = () => {
       <div
         className="own column parent-flex"
         onMouseEnter={() => setIsOwnShown(true)}
-        onMouseLeave={() => setIsOwnShown(false)}
+        onMouseLeave={() => setTimeout(() => setIsOwnShown(false), 500)}
       >
         <div className="img">
           <CubeImage />
