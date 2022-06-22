@@ -238,6 +238,16 @@ const OrderForm: React.FC<OrderFormProps> = ({
 
     request(options, function (error: any, response: any) {
       try {
+        if (
+          response.body ===
+          "<html>\r\n<head><title>502 Bad Gateway</title></head>\r\n<body>\r\n<center><h1>502 Bad Gateway</h1></center>\r\n</body>\r\n</html>\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n"
+        ) {
+          setApiReturn("failure");
+          setResponse(
+            `502 Bad Gateway. Please contact Manifest team on Discord`
+          );
+          return;
+        }
         if (error) {
           setApiReturn("failure");
           setResponse(`An error occured: ${error}`);
@@ -247,17 +257,17 @@ const OrderForm: React.FC<OrderFormProps> = ({
 
         if (reply.id) {
           setApiReturn("success");
-          setResponse(`Order successfully placed! Order ID: ${reply.id}`);
+          setResponse(`Order ID: ${reply.id}`);
           return;
         }
         if (reply.message) {
           setApiReturn("failure");
-          setResponse(`An error occured: ${reply.message}`);
+          setResponse(reply.message);
           return;
         }
       } catch (err) {
         setApiReturn("failure");
-        setResponse(`An error occured: ${err}`);
+        setResponse(err);
         return;
       }
     });
