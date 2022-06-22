@@ -16,6 +16,7 @@ import { ethers } from "ethers";
 import { ADDRESSES } from "../../constants/addresses";
 import { BurnABI } from "../../constants/ABIs/BurnABI";
 import { KlimaABI } from "../../constants/ABIs/KlimaABI";
+import { API_DOMAIN } from "../../constants/general";
 
 interface OrderFormProps {
   setLoading: any;
@@ -207,7 +208,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
     var request = require("request");
     var options = {
       method: "POST",
-      url: "https://inventory.manifest.gg/api/v1/order",
+      url: `${API_DOMAIN}/api/v1/order`,
       headers: {
         signature: signature?.signature,
         message: signature?.message,
