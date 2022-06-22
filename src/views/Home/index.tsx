@@ -26,10 +26,11 @@ const Home = () => {
           <div className="copy-container-content">
             <h1>GO MANIFEST IT</h1>
             <p>
-              Manifest is creating its own luxury fashion brand to spread
-              awareness and create clothing for the nouveau crypto rich, high
-              quality, fashionable, luxury clothing for the modern human,
-              tactical wear, casual wear, dresswear, and absolute drip.
+              Manifest delivers end to end physically claimable NFT
+              manufacturing and development services. We're flexible to your
+              needs whether your a crypto community that needs artistic
+              expression in the real world or a streetwear company looking to
+              break into web3.
             </p>
           </div>
         </div>
@@ -54,16 +55,18 @@ const Home = () => {
           <div className="copy-container-content">
             <h3>CREATE THE FUTURE</h3>
             <p>
-              Manifest is creating its own luxury fashion brand to spread
-              awareness and create clothing for the nouveau crypto rich, high
-              quality, fashionable, luxury clothing for the modern human,
-              tactical wear, casual wear, dresswear, and absolute drip.
+              Digital copies of real world luxury items that are redeemable for
+              the physical equivalent. Instant markets using automated market
+              makers (AMMs) for physical goods. (Market coming soon) Luxury IRL
+              and Internet crypto-born brand in Storefront. Redeem physical
+              items using Inventory. We build for the next generation of Humans.
+              Are you ready, traveler?
             </p>
           </div>
         </div>
         {isCreateShown && (
           <div className="call-to-action-container create">
-            <span className="call-to-action-name">MANIFEST BRAND</span>
+            <span className="call-to-action-name">MANIFEST</span>
             <div className="actionButton">
               <StoreButton></StoreButton>
             </div>
@@ -82,11 +85,11 @@ const Home = () => {
           <div className="copy-container-content">
             <h3>OWN EVERYTHING, EVERYWHERE</h3>
             <p>
-              The future of e-commerce is using NFTs to redeem/represent
-              physical products, we help you do that using our open-internet
-              service that uses shopify on the backend to build the store that
-              allows you to create your own physical claim frontend. Any chain,
-              anywhere, any how.
+              Manifest builds tech & developer tools to allow users to create
+              their own physically claimable NFT shopfronts, cross-chain NFT
+              solutions, and expanding the use-cases for NFTs in the real world
+              and digital crypto world. We’re building right now (Check back
+              later)
             </p>
           </div>
         </div>
