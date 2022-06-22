@@ -237,32 +237,29 @@ const OrderForm: React.FC<OrderFormProps> = ({
     setLoading(true);
 
     request(options, function (error: any, response: any) {
-      if (!response) {
+      try {
+        if (error) {
+          setApiReturn("failure");
+          setResponse(`An error occured: ${error}`);
+          return;
+        }
+        const reply = JSON.parse(response.body);
+
+        if (reply.id) {
+          setApiReturn("success");
+          setResponse(`Order successfully placed! Order ID: ${reply.id}`);
+          return;
+        }
+        if (reply.message) {
+          setApiReturn("failure");
+          setResponse(`An error occured: ${reply.message}`);
+          return;
+        }
+      } catch (err) {
         setApiReturn("failure");
-        setResponse("ERROR: No API Response");
-      }
-      console.log(response);
-      console.log(JSON.parse(response.body));
-      if (
-        response.body ===
-        '{"message":"Something went wrong. error(Error: Product not found)"}'
-      ) {
-        setApiReturn("failure");
-        setResponse(response.body);
-      }
-      if (error) {
-        setApiReturn("failure");
-        setResponse(`ERROR: ${error}`);
-        setLoading(false);
+        setResponse(`An error occured: ${err}`);
         return;
       }
-      if (!response.request.response.body.id) {
-        setApiReturn("failure");
-        setResponse("Something went wrong!");
-      }
-      setApiReturn("success");
-      setResponse(`Order ID: ${response.request.response.body.id}`);
-      setLoading(false);
     });
   };
 
