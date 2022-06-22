@@ -242,7 +242,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
         setResponse("ERROR: No API Response");
       }
       console.log(response);
-      console.log(JSON.parse(response.body).message);
+      console.log(JSON.parse(response.body));
       if (
         response.body ===
         '{"message":"Something went wrong. error(Error: Product not found)"}'
