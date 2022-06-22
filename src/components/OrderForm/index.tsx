@@ -240,6 +240,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
         setApiReturn("failure");
         setResponse("ERROR: No API Response");
       }
+      console.log(response);
       console.log(JSON.parse(response.body).message);
       if (
         response.body ===
