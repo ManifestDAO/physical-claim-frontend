@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./index.css";
+import "./index2.css";
+import "./svgStyles.css";
 import { ReactComponent as RatioImage } from "../../components/Homepage/Images/ratio.svg";
 import { ReactComponent as FlowerImage } from "../../components/Homepage/Images/flower.svg";
 import { ReactComponent as CubeImage } from "../../components/Homepage/Images/cube.svg";
@@ -13,18 +14,16 @@ const Home = () => {
   const [isOwnShown, setIsOwnShown] = useState(false);
 
   return (
-    <div className="wrap parent-flex">
-      <div
-        className="manifest column parent-flex"
-        onMouseEnter={() => setIsManifestShown(true)}
-        onMouseLeave={() => setTimeout(() => setIsManifestShown(false), 500)}
-      >
-        <div className="img">
-          <RatioImage />
-        </div>
-        <div className="copy-container">
-          <div className="copy-container-content">
-            <h1>GO MANIFEST IT</h1>
+    <div className="container">
+      <div className="column-wrapper">
+        <div className="column">
+          <div className="icon">
+            <div className="img">
+              <RatioImage />
+            </div>
+          </div>
+          <div className="icon-description">
+            <h3>GO MANIFEST IT</h3>
             <p>
               Manifest delivers end to end physically claimable NFT
               manufacturing and development services. We're flexible to your
@@ -34,25 +33,26 @@ const Home = () => {
             </p>
           </div>
         </div>
-        {isManifestShown && (
-          <div className="call-to-action-container manifest">
+        <div className="call-to-action-section">
+          <div className="icon-sec">
             <span className="call-to-action-name">MAAS</span>
+          </div>
+          <div className="icon-sec">
             <div className="actionButton">
               <FormButton></FormButton>
             </div>
           </div>
-        )}
-      </div>
-      <div
-        className="create column parent-flex"
-        onMouseEnter={() => setIsCreateShown(true)}
-        onMouseLeave={() => setTimeout(() => setIsCreateShown(false), 500)}
-      >
-        <div className="img">
-          <FlowerImage />
         </div>
-        <div className="copy-container">
-          <div className="copy-container-content">
+      </div>
+
+      <div className="column-wrapper">
+        <div className="column">
+          <div className="icon">
+            <div className="img">
+              <FlowerImage />
+            </div>
+          </div>
+          <div className="icon-description">
             <h3>CREATE THE FUTURE</h3>
             <p>
               Digital copies of real world luxury items that are redeemable for
@@ -64,25 +64,26 @@ const Home = () => {
             </p>
           </div>
         </div>
-        {isCreateShown && (
-          <div className="call-to-action-container create">
+        <div className="call-to-action-section">
+          <div className="icon-sec">
             <span className="call-to-action-name">MANIFEST</span>
+          </div>
+          <div className="icon-sec">
             <div className="actionButton">
               <StoreButton></StoreButton>
             </div>
           </div>
-        )}
-      </div>
-      <div
-        className="own column parent-flex"
-        onMouseEnter={() => setIsOwnShown(true)}
-        onMouseLeave={() => setTimeout(() => setIsOwnShown(false), 500)}
-      >
-        <div className="img">
-          <CubeImage />
         </div>
-        <div className="copy-container">
-          <div className="copy-container-content">
+      </div>
+
+      <div className="column-wrapper">
+        <div className="column">
+          <div className="icon">
+            <div className="img">
+              <CubeImage />
+            </div>
+          </div>
+          <div className="icon-description">
             <h3>OWN EVERYTHING, EVERYWHERE</h3>
             <p>
               Manifest builds tech & developer tools to allow users to create
@@ -93,14 +94,16 @@ const Home = () => {
             </p>
           </div>
         </div>
-        {isOwnShown && (
-          <div className="call-to-action-container own">
-            <span className="call-to-action-name">DEVELOPERS</span>
+        <div className="call-to-action-section">
+          <div className="icon-sec">
+            <span className="call-to-action-name">MANIFEST</span>
+          </div>
+          <div className="icon-sec">
             <div className="actionButton">
               <GithubButton></GithubButton>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

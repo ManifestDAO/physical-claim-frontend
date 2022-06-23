@@ -1,0 +1,103 @@
+.column-wrapper .img {
+  display: block;
+  flex: 100% 0;
+  margin: 0 auto;
+  text-align: center;
+  transition: all ease-in-out 1s;
+}
+.container .img svg {
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+  padding: 10px;
+  transition: all ease-in-out 1s;
+}
+
+.actionButton svg {
+  width: 200px;
+  height: 50px;
+  cursor: crosshair;
+}
+
+#inner_glow_filter {
+  visibility: hidden;
+  opacity: 0;
+}
+
+#a,
+#b,
+#c,
+#Vector,
+#Group\ 195_2 {
+  opacity: 0;
+  transition: all ease-in-out 1s;
+}
+
+.column-wrapper:hover #a,
+.column-wrapper:hover #b,
+.column-wrapper:hover #c,
+.column-wrapper:hover #Vector,
+.column-wrapper:hover #Group\ 195_2 {
+  opacity: 0.684;
+  transition: all ease-in-out 1s;
+}
+
+/* scaling down the images background glow */
+path#Ellipse\ 54,
+#Ellipse\ 55,
+#Ellipse\ 56 {
+  transform: scale(0.7);
+  transform-origin: center;
+}
+
+/* todo rename .img to .image */
+.column-wrapper:hover .img {
+  flex: 200px 0;
+  margin: 0 10px 0 10px;
+  transition: all ease-in-out 1s;
+
+  animation: breathing 2.5s ease-out infinite normal;
+  -webkit-animation: breathing 2.5s ease-out infinite normal;
+}
+
+/* .column-wrapper:hover .img svg {
+  width: 150px;
+  height: 150px;
+  margin-top: 25px;
+  transition: all ease-in-out 1s;
+} */
+
+#Line51,
+#Line52 {
+  opacity: 0;
+  transition: all ease-in-out 1s;
+}
+.column-wrapper:hover #Line51,
+.column-wrapper:hover #Line52 {
+  opacity: 0.684;
+  transition: all ease-in-out 1s;
+}
+.column-wrapper:hover #Line51,
+.column-wrapper:hover #Line52 {
+  opacity: 0.684;
+  transition: all ease-in-out 1s;
+}
+@keyframes breathing {
+  0% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+
+  50% {
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+}
