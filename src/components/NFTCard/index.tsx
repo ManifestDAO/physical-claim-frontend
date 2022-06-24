@@ -13,6 +13,7 @@ import { RootState } from "../../store";
 import { useWeb3React } from "@web3-react/core";
 import { update } from "../../slices/OrderSlice";
 import { ADDRESSES } from "../../constants/addresses";
+import { chainIds } from "../../constants/chainIds";
 
 interface NFTCardProps {
   shopUp: boolean;
@@ -100,7 +101,7 @@ const NFTCard: React.FC<NFTCardProps> = function ({
   // }, [genesisSelected, dispatch, nfts.genesis]);
 
   useEffect(() => {
-    if (account === undefined || chainId !== 4) return;
+    if (account === undefined || chainId !== chainIds.ETH_MAINNET) return;
     try {
       dispatch(clear({ klima: [], genesis: [] }));
       dispatch(
