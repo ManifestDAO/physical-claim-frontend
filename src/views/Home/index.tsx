@@ -29,7 +29,7 @@ const Home = () => {
             </div>
             <div className="copy-container">
               <div className="copy-container-content">
-                <h1>GO MANIFEST IT</h1>
+                <h3>GO MANIFEST IT</h3>
                 <p>
                   Manifest delivers end to end physically claimable NFT
                   manufacturing and development services. We're flexible to your

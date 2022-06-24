@@ -15,11 +15,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
       >
         X
       </div>
-      <iframe
-        src="https://docs.google.com/forms/d/e/1FAIpQLSeMZlbU5LhOxa4CXfeRAYSyhWvYuSLXgfuGfqNAsrsXqvU1jA/viewform?embedded=true"
-        width="640"
-        height="1106"
-      >
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeMZlbU5LhOxa4CXfeRAYSyhWvYuSLXgfuGfqNAsrsXqvU1jA/viewform?embedded=true">
         Loading…
       </iframe>
     </div>
