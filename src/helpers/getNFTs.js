@@ -7,7 +7,7 @@ export async function fetchNFTS(address, chainId) {
       return;
     }
     const web3 = createAlchemyWeb3(
-      "https://eth-rinkeby.alchemyapi.io/v2/SLyMsDV9L2ZfKBGSA5Wu9skVJCRjioha"
+      "https://eth-mainnet.alchemyapi.io/v2/0DaxEeV9p7V3kFyDzn90b-2-KpKp_-zO"
     );
     const nfts = await web3.alchemy.getNfts({
       owner: address,
