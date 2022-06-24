@@ -32,11 +32,6 @@
   transition: 0.2s;
 }
 
-.navbar:hover .nav-logo {
-  filter: drop-shadow(0 0 10px white);
-  transition: 0.2s;
-}
-
 .nav-text a {
   text-decoration: none;
   color: white;
