@@ -36,10 +36,6 @@ const OrderForm: React.FC<OrderFormProps> = ({
   const address = useSelector((state: RootState) => state.account.address);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log(order);
-  }, [order]);
-
   const changeHandler = (event: any) => {
     dispatch(
       update({

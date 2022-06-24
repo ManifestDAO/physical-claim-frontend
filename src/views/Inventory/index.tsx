@@ -44,7 +44,7 @@ function Inventory() {
   const growthSlot: JSX.Element = (
     <div className="nft-card">
       <h1 className="nft-title">GROWTH</h1>
-      <img className="nft-image" src={growthIcon} />
+      <img className="nft-image" alt="nft" src={growthIcon} />
       <h3 className="nft-quantity">Login to claim</h3>
     </div>
   );
@@ -52,7 +52,7 @@ function Inventory() {
   const protectionSlot: JSX.Element = (
     <div className="nft-card">
       <h1 className="nft-title">PROTECTION</h1>
-      <img className="nft-image" src={protectionIcon} />
+      <img className="nft-image" alt="nft" src={protectionIcon} />
       <h3 className="nft-quantity">Login to claim</h3>
     </div>
   );
@@ -60,7 +60,7 @@ function Inventory() {
   const abundanceSlot: JSX.Element = (
     <div className="nft-card">
       <h1 className="nft-title">ABUNDANCE</h1>
-      <img className="nft-image" src={abundanceIcon} />
+      <img className="nft-image" alt="nft" src={abundanceIcon} />
       <h3 className="nft-quantity">Login to claim</h3>
     </div>
   );
@@ -68,7 +68,7 @@ function Inventory() {
   const flowSlot: JSX.Element = (
     <div className="nft-card">
       <h1 className="nft-title">FLOW</h1>
-      <img className="nft-image" src={flowIcon} />
+      <img className="nft-image" alt="nft" src={flowIcon} />
       <h3 className="nft-quantity">Login to claim</h3>
     </div>
   );
@@ -76,7 +76,7 @@ function Inventory() {
   const creationSlot: JSX.Element = (
     <div className="nft-card">
       <h1 className="nft-title">CREATION</h1>
-      <img className="nft-image" src={creationIcon} />
+      <img className="nft-image" alt="nft" src={creationIcon} />
       <h3 className="nft-quantity">Login to claim</h3>
     </div>
   );
